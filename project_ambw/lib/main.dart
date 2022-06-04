@@ -1,115 +1,492 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MaterialApp(title: "My Task", home: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  List<bool> done = [false, false, false];
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+    return Scaffold(
+      body: Container(
+        color: Color.fromRGBO(23, 21, 22, 1),
+        padding: EdgeInsets.all(15),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    Icons.home_filled,
+                    color: Color.fromRGBO(111, 128, 200, 1),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 10),
+                    child: Text(
+                      "My Day",
+                      style: TextStyle(
+                          color: Color.fromRGBO(111, 128, 200, 1),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17),
+                    ),
+                  ),
+                ],
+              ),
+              OutlinedButton(
+                onPressed: () {},
+                child: Text("+ Add New Task",
+                    style: TextStyle(color: Color.fromRGBO(192, 191, 191, 1))),
+                style: OutlinedButton.styleFrom(
+                  side: BorderSide(
+                      width: 1.0, color: Color.fromRGBO(192, 191, 191, 1)),
+                ),
+              )
+            ],
+          ),
+          Container(
+              margin: EdgeInsets.fromLTRB(0, 10, 0, 20),
+              width: double.infinity,
+              height: 122,
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(72, 63, 132, 1),
+                border: Border.all(
+                  color: Color.fromRGBO(72, 63, 132, 1),
+                ),
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+                // image: DecorationImage(
+                //   image: AssetImage("assets/home_banner.png"),
+                //   fit: BoxFit.cover,
+                // ),
+              ),
+              child: Stack(children: <Widget>[
+                Positioned(
+                  top: 0,
+                  right: -25,
+                  child: (Image(
+                    image: AssetImage("assets/home_banner_art.png"),
+                    width: 150,
+                  )),
+                ),
+                Container(
+                  padding: EdgeInsets.all(13),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(bottom: 18),
+                          child: Text(
+                            "Selasa, 9 November 2021",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16),
+                          ),
+                        ),
+                        Text(
+                          "NEXT ON SCHEDULE",
+                          style: TextStyle(color: Colors.white, fontSize: 12),
+                        ),
+                        Text("11.30",
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 15)),
+                        Text("Tugas Machine Learning",
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 12)),
+                      ]),
+                ),
+              ])),
+          Container(
+            margin: EdgeInsets.only(bottom: 3),
+            child: Text(
+              "Today's Tasks",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16),
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: 3,
+                itemBuilder: (context, index) {
+                  return Container(
+                      margin: EdgeInsets.fromLTRB(0, 3, 0, 3),
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          color: Color.fromRGBO(47, 43, 45, 1),
+                          border: Border.all(
+                            color: Color.fromRGBO(47, 43, 45, 1),
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(5))),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                    margin: EdgeInsets.only(right: 15),
+                                    child: Checkbox(
+                                      checkColor: Color.fromRGBO(47, 43, 45, 1),
+                                      fillColor: MaterialStateProperty.all(
+                                          Color.fromRGBO(111, 128, 200, 1)),
+                                      value: done[index],
+                                      shape: CircleBorder(),
+                                      onChanged: (bool? value) {
+                                        setState(() {
+                                          done[index] = value!;
+                                        });
+                                      },
+                                    )),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Tugas Machine",
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 12)),
+                                    Container(
+                                      margin: EdgeInsets.only(top: 3),
+                                      child: Text("11.30",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 13)),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(right: 3),
+                                  child: IconButton(
+                                    tooltip: 'Edit Task',
+                                    onPressed: () {},
+                                    icon: Icon(Icons.edit,
+                                        color:
+                                            Color.fromRGBO(111, 128, 200, 1)),
+                                  ),
+                                ),
+                                IconButton(
+                                  tooltip: 'Delete Task',
+                                  onPressed: () {},
+                                  icon: Icon(Icons.delete,
+                                      color: Color.fromRGBO(111, 128, 200, 1)),
+                                )
+                              ],
+                            )
+                          ]));
+                }),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Settings()));
+                  },
+                  child: Text("Settings")),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Completed()));
+                  },
+                  child: Text("Completed"))
+            ],
+          )
+        ]),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+class Completed extends StatefulWidget {
+  const Completed({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<Completed> createState() => _CompletedState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+class _CompletedState extends State<Completed> {
+  List<bool> done = [true, true, true];
+  List<Widget> _getChildren(int count, String name) => List<Widget>.generate(
+        count,
+        (i) => ListTile(
+            title: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(right: 5),
+                      child: Checkbox(
+                        checkColor: Color.fromRGBO(47, 43, 45, 1),
+                        fillColor: MaterialStateProperty.all(
+                            Color.fromRGBO(228, 107, 103, 0.91)),
+                        value: done[i],
+                        shape: CircleBorder(),
+                        onChanged: (bool? value) {
+                          setState(() {
+                            done[i] = value!;
+                          });
+                        },
+                      ),
+                    ),
+                    Text('$name${i + 1}',
+                        style: TextStyle(color: Colors.white, fontSize: 12)),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(right: 5),
+                      child: IconButton(
+                        tooltip: 'View Task',
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.info_outline,
+                          color: Color.fromRGBO(228, 107, 103, 0.91),
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      tooltip: 'Delete Task',
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.delete,
+                        color: Color.fromRGBO(228, 107, 103, 0.91),
+                      ),
+                    )
+                  ],
+                ),
+              ],
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            const Divider(
+              thickness: 0.5,
+              color: Color.fromRGBO(228, 107, 103, 0.91),
             ),
           ],
-        ),
+        )),
+      );
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        color: Color.fromRGBO(23, 21, 22, 1),
+        padding: EdgeInsets.all(15),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Icon(
+                Icons.check_circle,
+                color: Color.fromRGBO(228, 107, 103, 0.91),
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 10),
+                child: Text(
+                  "Completed",
+                  style: TextStyle(
+                      color: Color.fromRGBO(228, 107, 103, 0.91),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17),
+                ),
+              )
+            ],
+          ),
+          Expanded(
+            child: Container(
+              margin: EdgeInsets.fromLTRB(0, 20, 0, 10),
+              child: Column(
+                children: [
+                  Expanded(
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: 3,
+                          itemBuilder: (context, index) {
+                            return Container(
+                                margin: EdgeInsets.fromLTRB(0, 3, 0, 3),
+                                decoration: BoxDecoration(
+                                    color: Color.fromRGBO(47, 43, 45, 1),
+                                    border: Border.all(
+                                      color: Color.fromRGBO(47, 43, 45, 1),
+                                    ),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(5))),
+                                child: ExpansionTile(
+                                  controlAffinity:
+                                      ListTileControlAffinity.leading,
+                                  // sets the color of the arrow when collapsed
+                                  collapsedIconColor:
+                                      Color.fromRGBO(228, 107, 103, 0.91),
+                                  // sets the color of the arrow when expanded
+                                  iconColor:
+                                      Color.fromRGBO(228, 107, 103, 0.91),
+                                  title: Text('Kategori ${index + 1}',
+                                      style: TextStyle(
+                                          color: Color.fromRGBO(
+                                              228, 107, 103, 0.91),
+                                          fontSize: 12)),
+                                  children: _getChildren(3, 'Tugas '),
+                                ));
+                          })),
+                ],
+              ),
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("Home"))
+            ],
+          )
+        ]),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+    ;
+  }
+}
+
+class Settings extends StatefulWidget {
+  const Settings({Key? key}) : super(key: key);
+
+  @override
+  State<Settings> createState() => _SettingsState();
+}
+
+class _SettingsState extends State<Settings> {
+  bool blockNotif = false, silentMode = false;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Container(
+            color: Color.fromRGBO(23, 21, 22, 1),
+            padding: EdgeInsets.all(15),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                Icon(
+                  Icons.settings,
+                  color: Color.fromRGBO(159, 215, 227, 0.91),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 10),
+                  child: Text(
+                    "Settings",
+                    style: TextStyle(
+                        color: Color.fromRGBO(159, 215, 227, 0.91),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 17),
+                  ),
+                )
+              ]),
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(0, 20, 0, 10),
+                  child: Column(
+                    children: [
+                      Expanded(
+                          child: ListView(
+                        shrinkWrap: true,
+                        children: <Widget>[
+                          Container(
+                            margin: EdgeInsets.fromLTRB(0, 3, 0, 3),
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                                color: Color.fromRGBO(47, 43, 45, 1),
+                                border: Border.all(
+                                  color: Color.fromRGBO(47, 43, 45, 1),
+                                ),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5))),
+                            child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("Block Notification",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      )),
+                                  Switch(
+                                    value: blockNotif,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        blockNotif = value;
+                                        //print(isSwitched);
+                                      });
+                                    },
+                                    inactiveTrackColor: Colors.grey,
+                                    activeTrackColor:
+                                        Color.fromRGBO(159, 215, 227, 0.4),
+                                    activeColor:
+                                        Color.fromRGBO(159, 215, 227, 1),
+                                  )
+                                ]),
+                          ),
+                          Container(
+                            margin: EdgeInsets.fromLTRB(0, 3, 0, 3),
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                                color: Color.fromRGBO(47, 43, 45, 1),
+                                border: Border.all(
+                                  color: Color.fromRGBO(47, 43, 45, 1),
+                                ),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5))),
+                            child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("Silent Mode",
+                                      style: TextStyle(color: Colors.white)),
+                                  Switch(
+                                    value: silentMode,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        silentMode = value;
+                                        //print(isSwitched);
+                                      });
+                                    },
+                                    inactiveTrackColor: Colors.grey,
+                                    activeTrackColor:
+                                        Color.fromRGBO(159, 215, 227, 0.4),
+                                    activeColor:
+                                        Color.fromRGBO(159, 215, 227, 1),
+                                  )
+                                ]),
+                          )
+                        ],
+                      )),
+                    ],
+                  ),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text("Home"))
+                ],
+              )
+            ])));
   }
 }
