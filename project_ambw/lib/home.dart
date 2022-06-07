@@ -17,7 +17,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List<bool> done = [false, false, false];
+  String _nextTaskName = "", _nextTaskTime = "", _nextSchedule = "";
   DateTime _start = DateTime(
       DateTime.now().year, DateTime.now().month, DateTime.now().day, 0, 0);
   DateTime _end = DateTime(DateTime.now().year, DateTime.now().month,
@@ -36,20 +36,70 @@ class _MyAppState extends State<MyApp> {
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               return Container(
+                  width: double.infinity,
+                  height: double.infinity,
                   color: Color.fromRGBO(23, 21, 22, 1),
                   padding: EdgeInsets.all(15),
-                  child: Text('ERROR'));
+                  child: Text('ERROR',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16)));
             } else if (snapshot.hasData || snapshot.data != null) {
               return StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection("tabelTask")
-                      .where('time', isGreaterThanOrEqualTo: _start)
-                      .limit(1)
+                      .where('time', isGreaterThanOrEqualTo: DateTime.now())
+                      .where('time', isLessThanOrEqualTo: _end)
+                      .orderBy('time')
                       .snapshots(),
                   builder: ((context, snapshot2) {
                     if (snapshot2.hasError) {
-                      return Text('ERROR');
+                      print('error');
+                      return Container(
+                          width: double.infinity,
+                          height: double.infinity,
+                          color: Color.fromRGBO(23, 21, 22, 1),
+                          padding: EdgeInsets.all(15),
+                          child: Center(
+                            child: Text('ERROR',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16)),
+                          ));
                     } else if (snapshot2.hasData || snapshot2.data != null) {
+                      if (snapshot2.data!.docs.length == 0) {
+                        _nextSchedule = "No more task for today";
+                        _nextTaskName = "";
+                        _nextTaskTime = "";
+                      } else {
+                        List<itemTask> todayTask = List<itemTask>.generate(
+                            snapshot2.data!.docs.length,
+                            (i) => itemTask(
+                                itemCategory: snapshot2.data!.docs[i]
+                                    ['category'],
+                                itemDetail: snapshot2.data!.docs[i]['detail'],
+                                itemDone: snapshot2.data!.docs[i]['done'],
+                                itemTime: snapshot2.data!.docs[i]['time'],
+                                itemTitle: snapshot2.data!.docs[i]['title'],
+                                itemId: snapshot2.data!.docs[i]['id']));
+
+                        _nextSchedule = "No more task for today";
+                        _nextTaskName = "";
+                        _nextTaskTime = "";
+                        for (var i = 0; i < todayTask.length; i++) {
+                          var task = todayTask[i];
+                          if (task.itemDone == false) {
+                            _nextSchedule = "NEXT ON SCHEDULE";
+                            _nextTaskName = task.itemTitle;
+                            _nextTaskTime = DateFormat('H:mm')
+                                .format(task.itemTime.toDate())
+                                .toString();
+                            break;
+                          }
+                        }
+                      }
                       return Container(
                         color: Color.fromRGBO(23, 21, 22, 1),
                         padding: EdgeInsets.all(15),
@@ -84,12 +134,13 @@ class _MyAppState extends State<MyApp> {
                                       // coba tambah data
                                       itemTask newItem = itemTask(
                                           itemId: "id baru",
-                                          itemTitle: "HAI",
+                                          itemTitle: "Tugas Baru",
                                           itemDetail: "test",
-                                          itemCategory: "Rumah",
+                                          itemCategory: "Sekolah",
                                           itemDone: false,
                                           itemTime: Timestamp.fromDate(
-                                              DateTime.now()));
+                                              DateTime.now().add(
+                                                  const Duration(hours: 2))));
                                       Database.tambahData(item: newItem);
                                     },
                                     child: Text("+ Add New Task",
@@ -151,23 +202,16 @@ class _MyAppState extends State<MyApp> {
                                               ),
                                             ),
                                             Text(
-                                              "NEXT ON SCHEDULE",
+                                              _nextSchedule,
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 12),
                                             ),
-                                            Text(
-                                                DateFormat('H:mm')
-                                                    .format(snapshot2
-                                                        .data!.docs[0]['time']
-                                                        .toDate())
-                                                    .toString(),
+                                            Text(_nextTaskTime,
                                                 style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 15)),
-                                            Text(
-                                                snapshot2.data!.docs[0]
-                                                    ['title'],
+                                            Text(_nextTaskName,
                                                 style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 12)),
@@ -359,13 +403,18 @@ class _MyAppState extends State<MyApp> {
                             ]),
                       );
                     }
-                    return Center(
-                      child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                          Colors.pinkAccent,
-                        ),
-                      ),
-                    );
+                    return Container(
+                        width: double.infinity,
+                        height: double.infinity,
+                        color: Color.fromRGBO(23, 21, 22, 1),
+                        padding: EdgeInsets.all(15),
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Color.fromRGBO(111, 128, 200, 1),
+                            ),
+                          ),
+                        ));
                   }));
             }
             return Container(
@@ -374,7 +423,7 @@ class _MyAppState extends State<MyApp> {
                 child: Center(
                   child: CircularProgressIndicator(
                     valueColor: AlwaysStoppedAnimation<Color>(
-                      Colors.pinkAccent,
+                      Color.fromRGBO(111, 128, 200, 1),
                     ),
                   ),
                 ));

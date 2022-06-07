@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:project_ambw/dataclass.dart';
 import 'dbservices.dart';
 import 'firebase_options.dart';
@@ -129,7 +130,11 @@ class _CompletedState extends State<Completed> {
                           .snapshots(),
                       builder: (context, snapshot) {
                         if (snapshot.hasError) {
-                          return Text('ERROR');
+                          return Text('ERROR',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16));
                         } else if (snapshot.hasData || snapshot.data != null) {
                           return ListView.builder(
                               shrinkWrap: true,
@@ -155,7 +160,11 @@ class _CompletedState extends State<Completed> {
                                             .snapshots(),
                                         builder: (context, snapshot2) {
                                           if (snapshot2.hasError) {
-                                            return Text('ERROR');
+                                            return Text('ERROR',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 16));
                                           } else if (snapshot2.hasData ||
                                               snapshot2.data != null) {
                                             return ExpansionTile(
@@ -181,11 +190,14 @@ class _CompletedState extends State<Completed> {
                                                   snapshot2.data!),
                                             );
                                           }
-                                          return Center(
-                                            child: CircularProgressIndicator(
-                                              valueColor:
-                                                  AlwaysStoppedAnimation<Color>(
-                                                Colors.pinkAccent,
+                                          return Container(
+                                            padding: EdgeInsets.all(10.0),
+                                            child: Center(
+                                              child: LoadingAnimationWidget
+                                                  .staggeredDotsWave(
+                                                color: Color.fromRGBO(
+                                                    228, 107, 103, 0.91),
+                                                size: 20,
                                               ),
                                             ),
                                           );
@@ -195,7 +207,7 @@ class _CompletedState extends State<Completed> {
                         return Center(
                           child: CircularProgressIndicator(
                             valueColor: AlwaysStoppedAnimation<Color>(
-                              Colors.pinkAccent,
+                              Color.fromRGBO(228, 107, 103, 0.91),
                             ),
                           ),
                         );
