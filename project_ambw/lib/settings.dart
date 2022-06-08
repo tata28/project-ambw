@@ -76,39 +76,35 @@ class _SettingsState extends State<Settings> {
                                             )),
                                         Switch(
                                           value: blockNotif,
-                                          onChanged: (value) {
-                                            setState(() async {
-                                              bool? isGranted =
-                                                  await PermissionHandler
-                                                      .permissionsGranted;
-                                              if (blockNotif == false) {
-                                                if (!isGranted!) {
-                                                  await FlutterDnd
-                                                      .setInterruptionFilter(
-                                                          FlutterDnd
-                                                              .INTERRUPTION_FILTER_NONE);
+                                          onChanged: (value) async {
+                                            bool? isGranted =
+                                                await PermissionHandler
+                                                    .permissionsGranted;
+                                            if (blockNotif == false) {
+                                              if (isGranted!) {
+                                                await FlutterDnd
+                                                    .setInterruptionFilter(
+                                                        FlutterDnd
+                                                            .INTERRUPTION_FILTER_NONE);
+                                                setState(() {
                                                   blockNotif = value;
-                                                  print(
-                                                      'granted'); // Turn on DND
-                                                } else {
-                                                  FlutterDnd
-                                                      .gotoPolicySettings();
-                                                  print('not granted');
-                                                }
+                                                }); // Turn on DND
                                               } else {
-                                                if (!isGranted!) {
-                                                  await FlutterDnd
-                                                      .setInterruptionFilter(
-                                                          FlutterDnd
-                                                              .INTERRUPTION_FILTER_ALL);
-                                                  blockNotif =
-                                                      value; // Turn off DND
-                                                } else {
-                                                  FlutterDnd
-                                                      .gotoPolicySettings();
-                                                }
+                                                FlutterDnd.gotoPolicySettings();
                                               }
-                                            });
+                                            } else {
+                                              if (isGranted!) {
+                                                await FlutterDnd
+                                                    .setInterruptionFilter(
+                                                        FlutterDnd
+                                                            .INTERRUPTION_FILTER_ALL);
+                                                setState(() {
+                                                  blockNotif = value;
+                                                }); // Turn off DND
+                                              } else {
+                                                FlutterDnd.gotoPolicySettings();
+                                              }
+                                            }
                                           },
                                           inactiveTrackColor: Colors.grey,
                                           activeTrackColor: Color.fromRGBO(
@@ -144,23 +140,25 @@ class _SettingsState extends State<Settings> {
                                                     .permissionsGranted;
                                             if (silentMode == false) {
                                               if (!isGranted!) {
-                                                // Opens the Do Not Disturb Access settings to grant the access
                                                 await PermissionHandler
                                                     .openDoNotDisturbSetting();
                                               } else {
                                                 await SoundMode.setSoundMode(
                                                     RingerModeStatus.silent);
-                                                silentMode = value;
+                                                setState(() {
+                                                  silentMode = value;
+                                                });
                                               }
                                             } else {
                                               if (!isGranted!) {
-                                                // Opens the Do Not Disturb Access settings to grant the access
                                                 await PermissionHandler
                                                     .openDoNotDisturbSetting();
                                               } else {
                                                 await SoundMode.setSoundMode(
                                                     RingerModeStatus.normal);
-                                                silentMode = value;
+                                                setState(() {
+                                                  silentMode = value;
+                                                });
                                               }
                                             }
                                             //});
