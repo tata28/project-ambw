@@ -274,31 +274,31 @@ class _MyAppState extends State<MyApp> {
                                                           shape: CircleBorder(),
                                                           onChanged:
                                                               (bool? value) {
-                                                            setState(() {
-                                                              itemTask updateDone = itemTask(
-                                                                  itemId: snapshot
-                                                                          .data!
-                                                                          .docs[index]
-                                                                      ['id'],
-                                                                  itemTitle: snapshot
-                                                                          .data!
-                                                                          .docs[index]
-                                                                      ['title'],
-                                                                  itemDetail: snapshot
-                                                                          .data!
-                                                                          .docs[index]
-                                                                      [
-                                                                      'detail'],
-                                                                  itemCategory: snapshot
-                                                                          .data!
-                                                                          .docs[index]
-                                                                      ['category'],
-                                                                  itemDone: value!,
-                                                                  itemTime: snapshot.data!.docs[index]['time']);
-                                                              Database.ubahData(
-                                                                  item:
-                                                                      updateDone);
-                                                            });
+                                                            //setState(() {
+                                                            itemTask updateDone = itemTask(
+                                                                itemId: snapshot
+                                                                        .data!
+                                                                        .docs[index]
+                                                                    ['id'],
+                                                                itemTitle: snapshot
+                                                                        .data!
+                                                                        .docs[index]
+                                                                    ['title'],
+                                                                itemDetail: snapshot
+                                                                        .data!
+                                                                        .docs[index]
+                                                                    ['detail'],
+                                                                itemCategory: snapshot
+                                                                        .data!
+                                                                        .docs[index]
+                                                                    [
+                                                                    'category'],
+                                                                itemDone: value!,
+                                                                itemTime: snapshot.data!.docs[index]['time']);
+                                                            Database.ubahData(
+                                                                item:
+                                                                    updateDone);
+                                                            //});
                                                           },
                                                         )),
                                                     Column(

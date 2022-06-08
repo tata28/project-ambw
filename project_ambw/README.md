@@ -1,16 +1,13 @@
-# project_ambw
+Pembagian Kerja:
+Dea : Home, Completed, Settings 
+Kezia: Music list, To do list, In session page
+Pacquita : Focus session, Task details, Bottom navigation
 
-A new Flutter project.
+Referensi:
+https://pub.dev/packages/sound_mode
+https://pub.dev/packages/flutter_dnd
+https://stackoverflow.com/questions/45433387/flutter-dynamic-expansiontile
+https://api.flutter.dev/flutter/widgets/Stack-class.html
+https://api.flutter.dev/flutter/material/IconButton-class.html
+https://firebase.google.com/docs/firestore/manage-data/add-data#dart_6
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

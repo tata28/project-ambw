@@ -36,16 +36,16 @@ class _CompletedState extends State<Completed> {
                       value: document.docs[i]['done'],
                       shape: CircleBorder(),
                       onChanged: (bool? value) {
-                        setState(() {
-                          itemTask updateDone = itemTask(
-                              itemId: document.docs[i]['id'],
-                              itemTitle: document.docs[i]['title'],
-                              itemDetail: document.docs[i]['detail'],
-                              itemCategory: document.docs[i]['category'],
-                              itemDone: value!,
-                              itemTime: document.docs[i]['time']);
-                          Database.ubahData(item: updateDone);
-                        });
+                        //setState(() {
+                        itemTask updateDone = itemTask(
+                            itemId: document.docs[i]['id'],
+                            itemTitle: document.docs[i]['title'],
+                            itemDetail: document.docs[i]['detail'],
+                            itemCategory: document.docs[i]['category'],
+                            itemDone: value!,
+                            itemTime: document.docs[i]['time']);
+                        Database.ubahData(item: updateDone);
+                        //});
                       },
                     ),
                   ),

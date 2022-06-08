@@ -2,10 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:project_ambw/dataclass.dart';
+import 'package:sound_mode/permission_handler.dart';
+import 'package:sound_mode/sound_mode.dart';
 import 'dbservices.dart';
 import 'firebase_options.dart';
 import 'package:intl/intl.dart'; //for date format
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:flutter_dnd/flutter_dnd.dart';
+import 'package:sound_mode/utils/ringer_mode_statuses.dart';
 import 'package:project_ambw/completed.dart';
 
 class Settings extends StatefulWidget {
@@ -73,9 +77,37 @@ class _SettingsState extends State<Settings> {
                                         Switch(
                                           value: blockNotif,
                                           onChanged: (value) {
-                                            setState(() {
-                                              blockNotif = value;
-                                              //print(isSwitched);
+                                            setState(() async {
+                                              bool? isGranted =
+                                                  await PermissionHandler
+                                                      .permissionsGranted;
+                                              if (blockNotif == false) {
+                                                if (!isGranted!) {
+                                                  await FlutterDnd
+                                                      .setInterruptionFilter(
+                                                          FlutterDnd
+                                                              .INTERRUPTION_FILTER_NONE);
+                                                  blockNotif = value;
+                                                  print(
+                                                      'granted'); // Turn on DND
+                                                } else {
+                                                  FlutterDnd
+                                                      .gotoPolicySettings();
+                                                  print('not granted');
+                                                }
+                                              } else {
+                                                if (!isGranted!) {
+                                                  await FlutterDnd
+                                                      .setInterruptionFilter(
+                                                          FlutterDnd
+                                                              .INTERRUPTION_FILTER_ALL);
+                                                  blockNotif =
+                                                      value; // Turn off DND
+                                                } else {
+                                                  FlutterDnd
+                                                      .gotoPolicySettings();
+                                                }
+                                              }
                                             });
                                           },
                                           inactiveTrackColor: Colors.grey,
@@ -105,11 +137,33 @@ class _SettingsState extends State<Settings> {
                                                 TextStyle(color: Colors.white)),
                                         Switch(
                                           value: silentMode,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              silentMode = value;
-                                              //print(isSwitched);
-                                            });
+                                          onChanged: (value) async {
+                                            //setState(() {
+                                            bool? isGranted =
+                                                await PermissionHandler
+                                                    .permissionsGranted;
+                                            if (silentMode == false) {
+                                              if (!isGranted!) {
+                                                // Opens the Do Not Disturb Access settings to grant the access
+                                                await PermissionHandler
+                                                    .openDoNotDisturbSetting();
+                                              } else {
+                                                await SoundMode.setSoundMode(
+                                                    RingerModeStatus.silent);
+                                                silentMode = value;
+                                              }
+                                            } else {
+                                              if (!isGranted!) {
+                                                // Opens the Do Not Disturb Access settings to grant the access
+                                                await PermissionHandler
+                                                    .openDoNotDisturbSetting();
+                                              } else {
+                                                await SoundMode.setSoundMode(
+                                                    RingerModeStatus.normal);
+                                                silentMode = value;
+                                              }
+                                            }
+                                            //});
                                           },
                                           inactiveTrackColor: Colors.grey,
                                           activeTrackColor: Color.fromRGBO(
