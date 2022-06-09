@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:project_ambw/dataclass.dart';
+import 'package:project_ambw/music_list.dart';
 import 'dbservices.dart';
 import 'firebase_options.dart';
 import 'package:intl/intl.dart'; //for date format
@@ -397,7 +398,16 @@ class _MyAppState extends State<MyApp> {
                                                 builder: (context) =>
                                                     Completed()));
                                       },
-                                      child: Text("Completed"))
+                                      child: Text("Completed")),
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    MusicList()));
+                                      },
+                                      child: Text("MusicList"))
                                 ],
                               )
                             ]),
