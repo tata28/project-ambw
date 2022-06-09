@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:project_ambw/dataclass.dart';
 import 'package:project_ambw/music_list.dart';
+import 'package:project_ambw/to_do_list.dart';
 import 'dbservices.dart';
 import 'firebase_options.dart';
 import 'package:intl/intl.dart'; //for date format
@@ -407,7 +408,16 @@ class _MyAppState extends State<MyApp> {
                                                 builder: (context) =>
                                                     MusicList()));
                                       },
-                                      child: Text("MusicList"))
+                                      child: Text("MusicList")),
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ToDoList()));
+                                      },
+                                      child: Text("ToDoList"))
                                 ],
                               )
                             ]),
