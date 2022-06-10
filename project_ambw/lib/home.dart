@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:project_ambw/dataclass.dart';
+import 'package:project_ambw/in_session_page.dart';
 import 'package:project_ambw/music_list.dart';
 import 'package:project_ambw/to_do_list.dart';
 import 'dbservices.dart';
@@ -417,7 +418,16 @@ class _MyAppState extends State<MyApp> {
                                                 builder: (context) =>
                                                     ToDoList()));
                                       },
-                                      child: Text("ToDoList"))
+                                      child: Text("ToDoList")),
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    InSessionPage()));
+                                      },
+                                      child: Text("In Session Page"))
                                 ],
                               )
                             ]),
