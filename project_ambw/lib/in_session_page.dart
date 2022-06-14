@@ -1,13 +1,94 @@
+import 'dart:async';
+import 'dart:core';
+
 import 'package:flutter/material.dart';
 
 class InSessionPage extends StatefulWidget {
-  const InSessionPage({Key? key}) : super(key: key);
+  final String sessionDuration, sessionRepitition, breakDuration;
+  const InSessionPage(
+      {Key? key,
+      required this.sessionDuration,
+      required this.sessionRepitition,
+      required this.breakDuration})
+      : super(key: key);
 
   @override
   State<InSessionPage> createState() => _InSessionPageState();
 }
 
 class _InSessionPageState extends State<InSessionPage> {
+  int session_duration = 0;
+  int session_repitition = 0;
+  int break_duration = 0;
+  int duration = 0;
+  int duration_min = 0;
+  int duration_sec = 0;
+  String duration_text = "";
+  String status = "";
+  String next = "";
+  Timer? timer;
+
+  @override
+  void initState() {
+    session_duration = (double.parse(widget.sessionDuration) * 60) as int;
+    break_duration = (double.parse(widget.breakDuration) * 60) as int;
+    duration = session_duration;
+
+    setText();
+    startTimer();
+    session_repitition++;
+    status = "session";
+    next = "${widget.breakDuration} min break";
+
+    super.initState();
+  }
+
+  void startTimer() {
+    timer = Timer.periodic(Duration(seconds: 1), (_) {
+      setState(() {
+        if (duration > 0) {
+          duration--;
+          setText();
+        } else if (session_repitition < int.parse(widget.sessionRepitition)) {
+          if (status == "session") {
+            stopTimer();
+            duration = break_duration;
+
+            setText();
+            startTimer();
+            status = "break";
+            next = "${widget.sessionDuration} min focus";
+          } else {
+            stopTimer();
+            duration = session_duration;
+
+            setText();
+            startTimer();
+            session_repitition++;
+            status = "session";
+            next = "${widget.breakDuration} min break";
+          }
+        } else {
+          stopTimer();
+        }
+      });
+    });
+  }
+
+  void stopTimer() {
+    timer?.cancel();
+  }
+
+  void setText() {
+    duration_min = (duration ~/ 60);
+    duration_sec = duration % 60;
+    if (duration_sec < 10) {
+      duration_text = duration_min.toString() + ":0" + duration_sec.toString();
+    } else {
+      duration_text = duration_min.toString() + ":" + duration_sec.toString();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,7 +161,7 @@ class _InSessionPageState extends State<InSessionPage> {
                                         Container(
                                           margin: EdgeInsets.only(left: 5),
                                           child: Text(
-                                            "1 of 3",
+                                            "${session_repitition.toString()} of ${widget.sessionRepitition}",
                                             style: TextStyle(
                                                 color: Color.fromRGBO(
                                                     255, 255, 255, 0.76),
@@ -103,7 +184,7 @@ class _InSessionPageState extends State<InSessionPage> {
                                       // width: MediaQuery.of(context).size.width,
                                       child: Column(
                                         children: [
-                                          Text("05:49",
+                                          Text(duration_text,
                                               style: TextStyle(
                                                   color: Color.fromRGBO(
                                                       255, 255, 255, 1),
@@ -159,7 +240,17 @@ class _InSessionPageState extends State<InSessionPage> {
                                     Container(
                                       margin: EdgeInsets.only(top: 20),
                                       child: ElevatedButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          final isRunning = timer == null
+                                              ? false
+                                              : timer!.isActive;
+
+                                          if (isRunning) {
+                                            stopTimer();
+                                          } else {
+                                            startTimer();
+                                          }
+                                        },
                                         child: Icon(Icons.stop,
                                             color: Colors.black, size: 32),
                                         style: ElevatedButton.styleFrom(
@@ -191,7 +282,7 @@ class _InSessionPageState extends State<InSessionPage> {
                                       // margin:
                                       //     EdgeInsets.only(left: 5),
                                       child: Text(
-                                        "15 min break",
+                                        next,
                                         style: TextStyle(
                                             color: Color.fromRGBO(
                                                 255, 255, 255, 1),

@@ -425,7 +425,11 @@ class _MyAppState extends State<MyApp> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    InSessionPage()));
+                                                    InSessionPage(
+                                                      sessionDuration: "1.5",
+                                                      sessionRepitition: "3",
+                                                      breakDuration: "0.5",
+                                                    )));
                                       },
                                       child: Text("In Session Page"))
                                 ],

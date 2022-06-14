@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:project_ambw/storage_service.dart';
 
 class MusicList extends StatefulWidget {
   const MusicList({Key? key}) : super(key: key);
@@ -24,6 +26,17 @@ class _MusicListState extends State<MusicList> {
     'Music 13',
     'Music 14',
   ];
+
+  // late Future<ListResult> futureMusics;
+
+  // @override
+  // void initState() {
+  //   futureMusics = FirebaseStorage.instance.ref('/musics').listAll();
+
+  //   super.initState();
+  // }
+
+  final Storage storage = Storage();
 
   @override
   Widget build(BuildContext context) {
@@ -99,65 +112,115 @@ class _MusicListState extends State<MusicList> {
                                 child: Column(
                                   children: [
                                     Expanded(
-                                        child: ListView.builder(
-                                            shrinkWrap: true,
-                                            itemCount: list_music.length,
-                                            itemBuilder: (context, index) {
-                                              return
-                                                  // Container(
-                                                  //   margin:
-                                                  //       EdgeInsets.only(left: 10),
-                                                  //   child: Text(
-                                                  //     list_music[index],
-                                                  //     style: TextStyle(
-                                                  //         color: Color.fromRGBO(
-                                                  //             159, 215, 227, 0.91),
-                                                  //         fontWeight:
-                                                  //             FontWeight.bold,
-                                                  //         fontSize: 17),
-                                                  //   ),
-                                                  // );
-                                                  Container(
-                                                      margin:
-                                                          EdgeInsets.fromLTRB(
-                                                              0, 3, 0, 3),
-                                                      padding:
-                                                          EdgeInsets.all(10),
-                                                      decoration: BoxDecoration(
-                                                          color: Color.fromRGBO(
-                                                              47, 43, 45, 1),
-                                                          border: Border.all(
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    47,
-                                                                    43,
-                                                                    45,
-                                                                    1),
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius.all(
-                                                                  Radius
-                                                                      .circular(
-                                                                          5))),
-                                                      child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          children: [
-                                                            Text(
-                                                                list_music[
-                                                                    index],
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Color
-                                                                      .fromRGBO(
-                                                                          255,
-                                                                          255,
-                                                                          255,
-                                                                          0.83),
-                                                                )),
-                                                          ]));
-                                            }))
+                                        child: FutureBuilder(
+                                      future: storage.listFiles(),
+                                      builder: (BuildContext context,
+                                          AsyncSnapshot<
+                                                  firebase_storage.ListResult>
+                                              snapshot) {
+                                        if (snapshot.connectionState ==
+                                                ConnectionState.done &&
+                                            snapshot.hasData) {
+                                          return Container(
+                                            child: ListView.builder(
+                                              itemCount:
+                                                  snapshot.data!.items.length,
+                                              itemBuilder:
+                                                  (BuildContext context,
+                                                      int index) {
+                                                return ListTile(
+                                                  title: Text(snapshot
+                                                      .data!.items[index].name),
+                                                );
+                                              },
+                                            ),
+                                          );
+                                        } else if (snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return const Center(
+                                            child: CircularProgressIndicator(
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                Color.fromRGBO(
+                                                    245, 182, 194, 1),
+                                              ),
+                                            ),
+                                          );
+                                        } else if (!snapshot.hasData) {
+                                          print('error');
+                                        }
+                                        return Container();
+                                      },
+                                    )
+                                        // FutureBuilder<ListResult>(
+                                        //   future: futureMusics,
+                                        //   builder: (context, snapshot) {
+                                        //     if (snapshot.hasData) {
+                                        //       final files = snapshot.data!.items;
+
+                                        //       return ListView.builder(
+                                        //         itemCount: files.length,
+                                        //         itemBuilder: (context, index) {
+                                        //           final file = files[index];
+                                        //           return ListTile(
+                                        //             title: Text(file.name),
+                                        //           );
+                                        //         },
+                                        //       );
+                                        //     } else if (snapshot.hasError) {
+                                        //       return const Center(
+                                        //           child: Text('Error occured'));
+                                        //     } else {
+                                        //       return const Center(
+                                        //         child: CircularProgressIndicator(
+                                        //           valueColor:
+                                        //               AlwaysStoppedAnimation<
+                                        //                   Color>(
+                                        //             Color.fromRGBO(
+                                        //                 245, 182, 194, 1),
+                                        //           ),
+                                        //         ),
+                                        //       );
+                                        //     }
+                                        //   },
+                                        // ),
+                                        // ================================
+                                        // ListView.builder(
+                                        //     shrinkWrap: true,
+                                        //     itemCount: list_music.length,
+                                        //     itemBuilder: (context, index) {
+                                        //       return Container(
+                                        //           margin: EdgeInsets.fromLTRB(
+                                        //               0, 3, 0, 3),
+                                        //           padding: EdgeInsets.all(10),
+                                        //           decoration: BoxDecoration(
+                                        //               color: Color.fromRGBO(
+                                        //                   47, 43, 45, 1),
+                                        //               border: Border.all(
+                                        //                 color: Color.fromRGBO(
+                                        //                     47, 43, 45, 1),
+                                        //               ),
+                                        //               borderRadius:
+                                        //                   BorderRadius.all(
+                                        //                       Radius.circular(
+                                        //                           5))),
+                                        //           child: Row(
+                                        //               mainAxisAlignment:
+                                        //                   MainAxisAlignment
+                                        //                       .spaceBetween,
+                                        //               children: [
+                                        //                 Text(list_music[index],
+                                        //                     style: TextStyle(
+                                        //                       color:
+                                        //                           Color.fromRGBO(
+                                        //                               255,
+                                        //                               255,
+                                        //                               255,
+                                        //                               0.83),
+                                        //                     )),
+                                        //               ]));
+                                        //     }),
+                                        ),
                                   ],
                                 ),
                               ),
