@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:project_ambw/storage_service.dart';
 
+import 'in_session_page.dart';
+
 class MusicList extends StatefulWidget {
   const MusicList({Key? key}) : super(key: key);
 
@@ -136,16 +138,6 @@ class _MusicListState extends State<MusicList> {
                                               itemCount: files.length,
                                               itemBuilder: (context, index) {
                                                 final file = files[index];
-                                                // return ListTile(
-                                                //   title: Text(file.name,
-                                                //       style: TextStyle(
-                                                //         color: Color.fromRGBO(
-                                                //             255,
-                                                //             255,
-                                                //             255,
-                                                //             0.83),
-                                                //       )),
-                                                // );
                                                 return Container(
                                                     margin: EdgeInsets.fromLTRB(
                                                         0, 3, 0, 3),
@@ -161,30 +153,53 @@ class _MusicListState extends State<MusicList> {
                                                             BorderRadius.all(
                                                                 Radius.circular(
                                                                     5))),
-                                                    child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Flexible(
-                                                            child: Text(
-                                                              file.name,
-                                                              style: TextStyle(
-                                                                color: Color
-                                                                    .fromRGBO(
-                                                                        255,
-                                                                        255,
-                                                                        255,
-                                                                        0.83),
+                                                    child: GestureDetector(
+                                                      onTap: () async {
+                                                        String link = (await file
+                                                            .getDownloadURL());
+                                                        print(link);
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        InSessionPage(
+                                                                          sessionDuration:
+                                                                              "1.5",
+                                                                          sessionRepitition:
+                                                                              "3",
+                                                                          breakDuration:
+                                                                              "0.5",
+                                                                          musicURL:
+                                                                              link,
+                                                                        )));
+                                                      },
+                                                      child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Flexible(
+                                                              child: Text(
+                                                                file.name,
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Color
+                                                                      .fromRGBO(
+                                                                          255,
+                                                                          255,
+                                                                          255,
+                                                                          0.83),
+                                                                ),
+                                                                maxLines: 1,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                softWrap: false,
                                                               ),
-                                                              maxLines: 1,
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                              softWrap: false,
                                                             ),
-                                                          ),
-                                                        ]));
+                                                          ]),
+                                                    ));
                                               },
                                             );
                                           } else if (snapshot.hasError) {

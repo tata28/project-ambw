@@ -1,15 +1,17 @@
 import 'dart:async';
 import 'dart:core';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
 class InSessionPage extends StatefulWidget {
-  final String sessionDuration, sessionRepitition, breakDuration;
+  final String sessionDuration, sessionRepitition, breakDuration, musicURL;
   const InSessionPage(
       {Key? key,
       required this.sessionDuration,
       required this.sessionRepitition,
-      required this.breakDuration})
+      required this.breakDuration,
+      required this.musicURL})
       : super(key: key);
 
   @override
@@ -27,7 +29,9 @@ class _InSessionPageState extends State<InSessionPage> {
   String status = "";
   String next = "";
   Timer? timer;
-
+  final musicPlayer = AudioPlayer();
+  bool status_music = true;
+  String music_url = "";
   @override
   void initState() {
     session_duration = (double.parse(widget.sessionDuration) * 60) as int;
@@ -40,7 +44,22 @@ class _InSessionPageState extends State<InSessionPage> {
     status = "session";
     next = "${widget.breakDuration} min break";
 
+    music_url = widget.musicURL.toString();
+    musicPlayer.play(music_url);
+
+    setMusic();
+
+    musicPlayer.onPlayerStateChanged.listen((state) {
+      setState(() {
+        status_music = state == PlayerState.PLAYING;
+      });
+    });
+
     super.initState();
+  }
+
+  Future setMusic() async {
+    musicPlayer.setReleaseMode(ReleaseMode.LOOP);
   }
 
   void startTimer() {
@@ -67,9 +86,14 @@ class _InSessionPageState extends State<InSessionPage> {
             session_repitition++;
             status = "session";
             next = "${widget.breakDuration} min break";
+            if (session_repitition == int.parse(widget.sessionRepitition)) {
+              next = "-";
+            }
           }
         } else {
           stopTimer();
+          musicPlayer.stop();
+          musicPlayer.setReleaseMode(ReleaseMode.STOP);
         }
       });
     });
@@ -105,6 +129,9 @@ class _InSessionPageState extends State<InSessionPage> {
                         Container(
                           child: ElevatedButton(
                             onPressed: () {
+                              stopTimer();
+                              musicPlayer.stop();
+                              musicPlayer.setReleaseMode(ReleaseMode.STOP);
                               Navigator.pop(context);
                             },
                             child: Icon(
@@ -191,10 +218,17 @@ class _InSessionPageState extends State<InSessionPage> {
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 60)),
                                           ElevatedButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
+                                            onPressed: () async {
+                                              if (status_music) {
+                                                await musicPlayer.pause();
+                                              } else {
+                                                await musicPlayer.resume();
+                                              }
                                             },
-                                            child: Text("Stop Music",
+                                            child: Text(
+                                                status_music
+                                                    ? "Stop Music"
+                                                    : "Play Music",
                                                 style: TextStyle(
                                                     color: Color.fromRGBO(
                                                         255, 255, 255, 1),

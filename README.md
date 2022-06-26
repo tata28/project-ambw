@@ -15,6 +15,8 @@ Referensi:<br>
 <li>https://firebase.google.com/docs/firestore/manage-data/add-data#dart_6</li>
 <li>https://www.youtube.com/watch?v=bjAsnIw3VCs</li>
 <li>https://www.youtube.com/watch?v=Jt3OSCe7eOw</li>
+<li>https://www.youtube.com/watch?v=MB3YGQ-O1lk</li>
+<li>https://stackoverflow.com/questions/48435365/get-download-url-from-firebase-storage-in-flutter</li>
 </ul>
 
 
