@@ -13,6 +13,8 @@ Referensi:<br>
 <li>https://api.flutter.dev/flutter/widgets/Stack-class.html</li>
 <li>https://api.flutter.dev/flutter/material/IconButton-class.html</li>
 <li>https://firebase.google.com/docs/firestore/manage-data/add-data#dart_6</li>
+<li>https://www.youtube.com/watch?v=bjAsnIw3VCs</li>
+<li>https://www.youtube.com/watch?v=Jt3OSCe7eOw</li>
 </ul>
 
 
