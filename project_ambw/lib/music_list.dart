@@ -42,6 +42,7 @@ class _MusicListState extends State<MusicList> {
   // final Storage storage = Storage();
 
   late Future<ListResult> futureFiles;
+  String link = "";
 
   @override
   void initState() {
@@ -80,12 +81,26 @@ class _MusicListState extends State<MusicList> {
                         ),
                         Container(
                           margin: EdgeInsets.only(left: 10),
-                          child: Text(
-                            "Save",
-                            style: TextStyle(
-                                color: Color.fromRGBO(245, 182, 194, 1),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15),
+                          child: GestureDetector(
+                            onTap: () {
+                              print(link);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => InSessionPage(
+                                            sessionDuration: "1.5",
+                                            sessionRepitition: "3",
+                                            breakDuration: "0.5",
+                                            musicURL: link,
+                                          )));
+                            },
+                            child: Text(
+                              "Save",
+                              style: TextStyle(
+                                  color: Color.fromRGBO(245, 182, 194, 1),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
+                            ),
                           ),
                         ),
                       ],
@@ -155,24 +170,8 @@ class _MusicListState extends State<MusicList> {
                                                                     5))),
                                                     child: GestureDetector(
                                                       onTap: () async {
-                                                        String link = (await file
+                                                        link = (await file
                                                             .getDownloadURL());
-                                                        print(link);
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        InSessionPage(
-                                                                          sessionDuration:
-                                                                              "1.5",
-                                                                          sessionRepitition:
-                                                                              "3",
-                                                                          breakDuration:
-                                                                              "0.5",
-                                                                          musicURL:
-                                                                              link,
-                                                                        )));
                                                       },
                                                       child: Row(
                                                           mainAxisAlignment:
