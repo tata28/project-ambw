@@ -34,8 +34,14 @@ class _InSessionPageState extends State<InSessionPage> {
   String music_url = "";
   @override
   void initState() {
-    session_duration = (double.parse(widget.sessionDuration) * 60) as int;
-    break_duration = (double.parse(widget.breakDuration) * 60) as int;
+    double d1 = double.parse(widget.sessionDuration);
+    double d2 = double.parse(widget.breakDuration);
+    d1 *= 60;
+    d2 *= 60;
+    session_duration = d1.toInt();
+    break_duration = d2.toInt();
+    // session_duration = (double.parse(widget.sessionDuration) * 60) as int;
+    // break_duration = (double.parse(widget.breakDuration) * 60) as int;
     duration = session_duration;
 
     setText();
