@@ -30,7 +30,13 @@ class _MyAppState extends State<MyApp> {
   int currentIndex = 0;
   final screens = [
     Home(),
-    FocusSession(),
+    FocusSession(
+      sessionDuration: "",
+      sessionRepitition: "",
+      breakDuration: "",
+      musicURL: "",
+      musicName: "Choose Music",
+    ),
     TaskDetails(),
     Completed(),
     SettingsPage()

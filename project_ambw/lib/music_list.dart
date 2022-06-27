@@ -1,34 +1,41 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:project_ambw/focus_session.dart';
 import 'package:project_ambw/storage_service.dart';
 
 import 'in_session_page.dart';
 
 class MusicList extends StatefulWidget {
-  const MusicList({Key? key}) : super(key: key);
+  final String sessionDuration, sessionRepitition, breakDuration;
+  const MusicList(
+      {Key? key,
+      required this.sessionDuration,
+      required this.sessionRepitition,
+      required this.breakDuration})
+      : super(key: key);
 
   @override
   State<MusicList> createState() => _MusicListState();
 }
 
 class _MusicListState extends State<MusicList> {
-  List<String> list_music = [
-    'Music 1',
-    'Music 2',
-    'Music 3',
-    'Music 4',
-    'Music 5',
-    'Music 6',
-    'Music 7',
-    'Music 8',
-    'Music 9',
-    'Music 10',
-    'Music 11',
-    'Music 12',
-    'Music 13',
-    'Music 14',
-  ];
+  // List<String> list_music = [
+  //   'Music 1',
+  //   'Music 2',
+  //   'Music 3',
+  //   'Music 4',
+  //   'Music 5',
+  //   'Music 6',
+  //   'Music 7',
+  //   'Music 8',
+  //   'Music 9',
+  //   'Music 10',
+  //   'Music 11',
+  //   'Music 12',
+  //   'Music 13',
+  //   'Music 14',
+  // ];
 
   // late Future<ListResult> futureMusics;
 
@@ -42,8 +49,10 @@ class _MusicListState extends State<MusicList> {
   // final Storage storage = Storage();
 
   late Future<ListResult> futureFiles;
-  String link = "";
+
   int selectedMusic = 0;
+  String musicLink = "";
+  String musicName = "";
 
   @override
   void initState() {
@@ -91,16 +100,29 @@ class _MusicListState extends State<MusicList> {
                           margin: EdgeInsets.only(left: 10),
                           child: GestureDetector(
                             onTap: () {
-                              print(link);
+                              print(musicLink);
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) => InSessionPage(
+                              //               sessionDuration: "1.5",
+                              //               sessionRepitition: "3",
+                              //               breakDuration: "0.5",
+                              //               musicURL: link,
+                              //             )));
                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => InSessionPage(
-                                            sessionDuration: "1.5",
-                                            sessionRepitition: "3",
-                                            breakDuration: "0.5",
-                                            musicURL: link,
-                                          )));
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => FocusSession(
+                                          sessionDuration:
+                                              widget.sessionDuration,
+                                          sessionRepitition:
+                                              widget.sessionRepitition,
+                                          breakDuration: widget.breakDuration,
+                                          musicURL: musicLink,
+                                          musicName: musicName,
+                                        )),
+                              );
                             },
                             child: Text(
                               "Save",
@@ -179,39 +201,56 @@ class _MusicListState extends State<MusicList> {
                                                   child: RadioListTile(
                                                     value: index,
                                                     groupValue: selectedMusic,
-                                                    activeColor: Colors.green,
+
+                                                    activeColor: Color.fromRGBO(
+                                                        245, 182, 194, 1),
                                                     onChanged: (val) async {
                                                       print("Radio $val");
                                                       setSelectedMusic(index);
-                                                      link = (await file
+                                                      musicLink = (await file
                                                           .getDownloadURL());
+                                                      musicName = file.name;
                                                     },
-                                                    title: Container(
-                                                        child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Flexible(
-                                                          child: Text(
-                                                            file.name,
-                                                            style: TextStyle(
-                                                              color: Color
-                                                                  .fromRGBO(
-                                                                      255,
-                                                                      255,
-                                                                      255,
-                                                                      0.83),
-                                                            ),
-                                                            maxLines: 1,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            softWrap: false,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    )),
+                                                    title: Text(
+                                                      file.name,
+                                                      style: TextStyle(
+                                                        color: Color.fromRGBO(
+                                                            255,
+                                                            255,
+                                                            255,
+                                                            0.83),
+                                                      ),
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      softWrap: false,
+                                                    ),
+                                                    // Container(
+                                                    //     child: Row(
+                                                    //   mainAxisAlignment:
+                                                    //       MainAxisAlignment
+                                                    //           .spaceBetween,
+                                                    //   children: [
+                                                    //     Flexible(
+                                                    //       child: Text(
+                                                    //         file.name,
+                                                    //         style: TextStyle(
+                                                    //           color: Color
+                                                    //               .fromRGBO(
+                                                    //                   255,
+                                                    //                   255,
+                                                    //                   255,
+                                                    //                   0.83),
+                                                    //         ),
+                                                    //         maxLines: 1,
+                                                    //         overflow:
+                                                    //             TextOverflow
+                                                    //                 .ellipsis,
+                                                    //         softWrap: false,
+                                                    //       ),
+                                                    //     ),
+                                                    //   ],
+                                                    // )),
                                                   ),
                                                 );
                                               },

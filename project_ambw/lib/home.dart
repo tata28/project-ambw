@@ -381,15 +381,15 @@ class _HomeState extends State<Home> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  ElevatedButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    MusicList()));
-                                      },
-                                      child: Text("MusicList")),
+                                  // ElevatedButton(
+                                  //     onPressed: () {
+                                  //       Navigator.push(
+                                  //           context,
+                                  //           MaterialPageRoute(
+                                  //               builder: (context) =>
+                                  //                   MusicList()));
+                                  //     },
+                                  //     child: Text("MusicList")),
                                   ElevatedButton(
                                       onPressed: () {
                                         Navigator.push(

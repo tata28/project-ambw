@@ -2,10 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
+import 'in_session_page.dart';
 import 'music_list.dart';
 
 class FocusSession extends StatefulWidget {
-  const FocusSession({Key? key}) : super(key: key);
+  final String sessionDuration,
+      sessionRepitition,
+      breakDuration,
+      musicURL,
+      musicName;
+
+  const FocusSession(
+      {Key? key,
+      required this.sessionDuration,
+      required this.sessionRepitition,
+      required this.breakDuration,
+      required this.musicURL,
+      required this.musicName})
+      : super(key: key);
 
   @override
   State<FocusSession> createState() => _FocusSessionState();
@@ -141,14 +155,24 @@ class _FocusSessionState extends State<FocusSession> {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) =>
-                                                  MusicList()));
+                                              builder: (context) => MusicList(
+                                                    sessionDuration: "1.5",
+                                                    sessionRepitition: "3",
+                                                    breakDuration: "1",
+                                                  )));
                                     },
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text('Music 1'),
+                                        Expanded(
+                                          child: Text(
+                                            widget.musicName,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            softWrap: false,
+                                          ),
+                                        ),
                                         Icon(
                                           Icons.arrow_forward,
                                           color: Color(0xffFFF5B6C2),
@@ -161,7 +185,18 @@ class _FocusSessionState extends State<FocusSession> {
                                   width: 200,
                                   height: 50,
                                   child: OutlinedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  InSessionPage(
+                                                    sessionDuration: "1.5",
+                                                    sessionRepitition: "3",
+                                                    breakDuration: "0.5",
+                                                    musicURL: widget.musicURL,
+                                                  )));
+                                    },
                                     style: OutlinedButton.styleFrom(
                                         side: BorderSide(
                                             color: Color(0xffFFF5B6C2),
