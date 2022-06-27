@@ -27,6 +27,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  audioplayers: ^0.20.1
   cloud_firestore: ^3.1.17
   cloud_firestore_web: ^2.6.16
   cupertino_icons: ^1.0.2
@@ -39,9 +40,6 @@ dependencies:
   intl: ^0.17.0
   loading_animation_widget: ^1.2.0+1
   sound_mode: ^2.0.2
-  audioplayers: ^0.20.1
-  # audioplayer: 0.8.1
-  # audioplayer_web: 0.7.1
 
 dev_dependencies:
   flutter_lints: ^1.0.0

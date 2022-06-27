@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:project_ambw/dataclass.dart';
+import 'package:project_ambw/task_details.dart';
 import 'dbservices.dart';
 import 'firebase_options.dart';
 import 'package:intl/intl.dart'; //for date format
@@ -56,12 +57,17 @@ class _CompletedState extends State<Completed> {
               Row(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(right: 5),
+                    margin: EdgeInsets.only(right: 0),
                     child: IconButton(
                       tooltip: 'View Task',
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.info_outline,
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TaskDetails()));
+                      },
+                      icon: ImageIcon(
+                        AssetImage("assets/img/info.png"),
                         color: Color.fromRGBO(228, 107, 103, 0.91),
                       ),
                     ),
@@ -71,8 +77,8 @@ class _CompletedState extends State<Completed> {
                     onPressed: () {
                       Database.hapusData(idTask: document.docs[i]['id']);
                     },
-                    icon: Icon(
-                      Icons.delete,
+                    icon: ImageIcon(
+                      AssetImage("assets/img/delete.png"),
                       color: Color.fromRGBO(228, 107, 103, 0.91),
                     ),
                   )
@@ -101,10 +107,8 @@ class _CompletedState extends State<Completed> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Icon(
-                  Icons.check_circle,
-                  color: Color.fromRGBO(228, 107, 103, 0.91),
-                ),
+                ImageIcon(AssetImage("assets/img/completed.png"),
+                    color: Color.fromRGBO(228, 107, 103, 0.91), size: 17),
                 Container(
                   margin: EdgeInsets.only(left: 10),
                   child: Text(
@@ -217,16 +221,6 @@ class _CompletedState extends State<Completed> {
                 ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text("Home"))
-              ],
-            )
           ]),
         ),
       ),

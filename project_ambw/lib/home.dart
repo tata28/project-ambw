@@ -8,6 +8,7 @@ import 'package:intl/intl.dart'; //for date format
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:project_ambw/dataclass.dart';
 import 'package:project_ambw/settings.dart' as pSettings;
+import 'package:project_ambw/task_details.dart';
 import 'package:project_ambw/to_do_list.dart';
 
 class Home extends StatefulWidget {
@@ -113,10 +114,11 @@ class _HomeState extends State<Home> {
                                 children: [
                                   Row(
                                     children: [
-                                      Icon(
-                                        Icons.home_filled,
-                                        color: Color.fromRGBO(111, 128, 200, 1),
-                                      ),
+                                      ImageIcon(
+                                          AssetImage("assets/img/home.png"),
+                                          color:
+                                              Color.fromRGBO(111, 128, 200, 1),
+                                          size: 17),
                                       Container(
                                         margin: EdgeInsets.only(left: 10),
                                         child: Text(
@@ -133,16 +135,21 @@ class _HomeState extends State<Home> {
                                   OutlinedButton(
                                     onPressed: () {
                                       // coba tambah data
-                                      itemTask newItem = itemTask(
-                                          itemId: "id baru",
-                                          itemTitle: "Tugas Baru",
-                                          itemDetail: "test",
-                                          itemCategory: "Sekolah",
-                                          itemDone: false,
-                                          itemTime: Timestamp.fromDate(
-                                              DateTime.now().add(
-                                                  const Duration(hours: 2))));
-                                      Database.tambahData(item: newItem);
+                                      // itemTask newItem = itemTask(
+                                      //     itemId: "id baru",
+                                      //     itemTitle: "Tugas Baru",
+                                      //     itemDetail: "test",
+                                      //     itemCategory: "Sekolah",
+                                      //     itemDone: false,
+                                      //     itemTime: Timestamp.fromDate(
+                                      //         DateTime.now().add(
+                                      //             const Duration(hours: 2))));
+                                      // Database.tambahData(item: newItem);
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  TaskDetails()));
                                     },
                                     child: Text("+ Add New Task",
                                         style: TextStyle(
@@ -343,17 +350,16 @@ class _HomeState extends State<Home> {
                                                   children: [
                                                     Container(
                                                       margin: EdgeInsets.only(
-                                                          right: 3),
+                                                          right: 0),
                                                       child: IconButton(
                                                         tooltip: 'Edit Task',
                                                         onPressed: () {},
-                                                        icon: Icon(Icons.edit,
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    111,
-                                                                    128,
-                                                                    200,
-                                                                    1)),
+                                                        icon: ImageIcon(
+                                                          AssetImage(
+                                                              "assets/img/edit.png"),
+                                                          color: Color.fromRGBO(
+                                                              111, 128, 200, 1),
+                                                        ),
                                                       ),
                                                     ),
                                                     IconButton(
@@ -365,12 +371,12 @@ class _HomeState extends State<Home> {
                                                                     .docs[index]
                                                                 ['id']);
                                                       },
-                                                      icon: Icon(Icons.delete,
-                                                          color: Color.fromRGBO(
-                                                              111,
-                                                              128,
-                                                              200,
-                                                              1)),
+                                                      icon: ImageIcon(
+                                                        AssetImage(
+                                                            "assets/img/delete.png"),
+                                                        color: Color.fromRGBO(
+                                                            111, 128, 200, 1),
+                                                      ),
                                                     )
                                                   ],
                                                 )

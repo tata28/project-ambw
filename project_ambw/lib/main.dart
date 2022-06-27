@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:project_ambw/dataclass.dart';
+import 'package:project_ambw/to_do_list.dart';
 import 'dbservices.dart';
 import 'firebase_options.dart';
 import 'package:intl/intl.dart'; //for date format
@@ -37,7 +38,7 @@ class _MyAppState extends State<MyApp> {
       musicURL: "",
       musicName: "Choose Music",
     ),
-    TaskDetails(),
+    ToDoList(),
     Completed(),
     SettingsPage()
   ];
@@ -54,7 +55,7 @@ class _MyAppState extends State<MyApp> {
         bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             selectedItemColor: Colors.white,
-            unselectedItemColor: Colors.grey,
+            unselectedItemColor: Color.fromRGBO(192, 191, 191, 0.69),
             // unselectedItemColor: Color(0xffFFC0BFBF),
             backgroundColor: Colors.black,
             currentIndex: currentIndex,
@@ -65,12 +66,16 @@ class _MyAppState extends State<MyApp> {
                 label: 'Home',
               ),
               BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage("assets/img/focus_session.png")),
+                icon: ImageIcon(
+                  AssetImage("assets/img/focus_session.png"),
+                ),
                 label: 'Focus Session',
                 backgroundColor: Colors.transparent,
               ),
               BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage("assets/img/to_do_list.png")),
+                icon: ImageIcon(
+                  AssetImage("assets/img/to_do_list.png"),
+                ),
                 label: 'To Do List',
                 backgroundColor: Colors.transparent,
               ),

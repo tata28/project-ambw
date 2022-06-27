@@ -37,10 +37,9 @@ class _SettingsPageState extends State<SettingsPage> {
                       Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Icon(
-                              Icons.settings,
-                              color: Color.fromRGBO(159, 215, 227, 0.91),
-                            ),
+                            ImageIcon(AssetImage("assets/img/settings.png"),
+                                color: Color.fromRGBO(159, 215, 227, 0.91),
+                                size: 17),
                             Container(
                               margin: EdgeInsets.only(left: 10),
                               child: Text(
@@ -184,16 +183,6 @@ class _SettingsPageState extends State<SettingsPage> {
                           ),
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ElevatedButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text("Home"))
-                        ],
-                      )
                     ]),
               )));
     } else {
@@ -209,9 +198,10 @@ class _SettingsPageState extends State<SettingsPage> {
                       Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Icon(
-                              Icons.settings,
+                            ImageIcon(
+                              AssetImage("assets/img/settings.png"),
                               color: Color.fromRGBO(159, 215, 227, 0.91),
+                              size: 17,
                             ),
                             Container(
                               margin: EdgeInsets.only(left: 10),
@@ -259,16 +249,6 @@ class _SettingsPageState extends State<SettingsPage> {
                           ),
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ElevatedButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text("Home"))
-                        ],
-                      )
                     ]),
               )));
     }
