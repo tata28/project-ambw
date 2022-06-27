@@ -12,14 +12,14 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:project_ambw/completed.dart';
 import 'package:project_ambw/settings.dart' as pSettings;
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<Home> createState() => _HomeState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _HomeState extends State<Home> {
   String _nextTaskName = "", _nextTaskTime = "", _nextSchedule = "";
   DateTime _start = DateTime(
       DateTime.now().year, DateTime.now().month, DateTime.now().day, 0, 0);
@@ -389,24 +389,6 @@ class _MyAppState extends State<MyApp> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    pSettings.Settings()));
-                                      },
-                                      child: Text("Settings")),
-                                  ElevatedButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    Completed()));
-                                      },
-                                      child: Text("Completed")),
-                                  ElevatedButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
                                                     MusicList()));
                                       },
                                       child: Text("MusicList")),
@@ -429,7 +411,8 @@ class _MyAppState extends State<MyApp> {
                                                       sessionDuration: "1.5",
                                                       sessionRepitition: "3",
                                                       breakDuration: "0.5",
-                                                      musicURL: "https://firebasestorage.googleapis.com/v0/b/my-task-9254e.appspot.com/o/musics%2FCalum%20Scott%20-%20You%20Are%20The%20Reason%20(Official).mp3?alt=media&token=675eacea-c01a-45a5-b3a2-2de2009ed50d",
+                                                      musicURL:
+                                                          "https://firebasestorage.googleapis.com/v0/b/my-task-9254e.appspot.com/o/musics%2FCalum%20Scott%20-%20You%20Are%20The%20Reason%20(Official).mp3?alt=media&token=675eacea-c01a-45a5-b3a2-2de2009ed50d",
                                                     )));
                                       },
                                       child: Text("In Session Page"))

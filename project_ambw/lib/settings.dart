@@ -13,14 +13,14 @@ import 'package:sound_mode/utils/ringer_mode_statuses.dart';
 import 'package:flutter/foundation.dart';
 import 'package:project_ambw/completed.dart';
 
-class Settings extends StatefulWidget {
-  const Settings({Key? key}) : super(key: key);
+class SettingsPage extends StatefulWidget {
+  const SettingsPage({Key? key}) : super(key: key);
 
   @override
-  State<Settings> createState() => _SettingsState();
+  State<SettingsPage> createState() => _SettingsPageState();
 }
 
-class _SettingsState extends State<Settings> {
+class _SettingsPageState extends State<SettingsPage> {
   bool blockNotif = false, silentMode = false;
   @override
   Widget build(BuildContext context) {
