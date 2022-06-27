@@ -20,7 +20,6 @@ class _FocusSessionState extends State<FocusSession> {
             resizeToAvoidBottomInset: false,
             backgroundColor: Colors.black,
             body: Container(
-                color: Color.fromRGBO(23, 21, 22, 1),
                 padding: EdgeInsets.all(20),
                 child: SafeArea(
                   child: Column(
@@ -29,8 +28,11 @@ class _FocusSessionState extends State<FocusSession> {
                         Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              ImageIcon(AssetImage(
-                                  "assets/img/focus_session_selected.png")),
+                              ImageIcon(
+                                AssetImage(
+                                    "assets/img/focus_session_selected.png"),
+                                color: Color(0xffFFFE5ABB6),
+                              ),
                               Container(
                                 margin: EdgeInsets.only(left: 10),
                                 child: Text("Focus Session",

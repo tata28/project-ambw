@@ -1,16 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:project_ambw/dataclass.dart';
+import 'package:project_ambw/dbservices.dart';
 import 'package:project_ambw/in_session_page.dart';
 import 'package:project_ambw/music_list.dart';
-import 'package:project_ambw/to_do_list.dart';
-import 'dbservices.dart';
-import 'firebase_options.dart';
 import 'package:intl/intl.dart'; //for date format
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:project_ambw/completed.dart';
+import 'package:project_ambw/dataclass.dart';
 import 'package:project_ambw/settings.dart' as pSettings;
+import 'package:project_ambw/to_do_list.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
