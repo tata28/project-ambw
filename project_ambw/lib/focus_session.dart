@@ -26,6 +26,10 @@ class FocusSession extends StatefulWidget {
 }
 
 class _FocusSessionState extends State<FocusSession> {
+  TextEditingController _tfSessionDur = TextEditingController();
+  TextEditingController _tfRepetition = TextEditingController();
+  TextEditingController _tfBreakDur = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -67,6 +71,7 @@ class _FocusSessionState extends State<FocusSession> {
                         SizedBox(height: 20),
                         Container(
                           child: TextField(
+                            controller: _tfSessionDur,
                             style: TextStyle(
                                 color: Color.fromARGB(255, 160, 158, 158)),
                             textCapitalization: TextCapitalization.words,
@@ -87,6 +92,7 @@ class _FocusSessionState extends State<FocusSession> {
                         SizedBox(height: 20),
                         Container(
                           child: TextField(
+                            controller: _tfRepetition,
                             style: TextStyle(
                                 color: Color.fromARGB(255, 160, 158, 158)),
                             textCapitalization: TextCapitalization.words,
@@ -115,6 +121,7 @@ class _FocusSessionState extends State<FocusSession> {
                         SizedBox(height: 20),
                         Container(
                           child: TextField(
+                            controller: _tfBreakDur,
                             style: TextStyle(
                                 color: Color.fromARGB(255, 160, 158, 158)),
                             textCapitalization: TextCapitalization.words,

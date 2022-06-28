@@ -12,10 +12,14 @@ class TaskDetails extends StatefulWidget {
 class _TaskDetailsState extends State<TaskDetails> {
   List listItem = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"];
   String? valueChoose;
-  DateTime date = DateTime(2022, 12, 24);
+  DateTime dateTime = DateTime(2022, 12, 24, 5, 30);
 
   @override
   Widget build(BuildContext context) {
+    final hours = dateTime.hour.toString().padLeft(2, '0');
+    final minutes = dateTime.minute.toString().padLeft(2, '0');
+    TextEditingController _dueDateTextField = TextEditingController();
+
     return MaterialApp(
         title: "focus session",
         home: Scaffold(
@@ -115,38 +119,46 @@ class _TaskDetailsState extends State<TaskDetails> {
                             SizedBox(height: 20),
                             Row(
                               children: [
-                                Expanded(
-                                  child: TextField(
-                                    readOnly: true,
-                                    style: TextStyle(
-                                        color:
-                                            Color.fromARGB(255, 160, 158, 158)),
-                                    textCapitalization:
-                                        TextCapitalization.words,
-                                    textDirection: TextDirection.ltr,
-                                    decoration: InputDecoration(
-                                        fillColor: Colors.white,
-                                        enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Color(0xffFF2F2B2D))),
-                                        focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Color(0xffFF2F2B2D))),
-                                        hintText: "Due Date",
-                                        hintStyle:
-                                            TextStyle(color: Colors.grey)),
+                                SizedBox(
+                                  width: 80,
+                                  height: 55,
+                                  child: OutlinedButton(
+                                    onPressed: () {},
+                                    style: ElevatedButton.styleFrom(
+                                        primary: Color(0xffFFC3B1E1)),
+                                    child: Text(
+                                      'Due Date',
+                                      style: TextStyle(
+                                          fontSize: 16, color: Colors.white),
+                                    ),
                                   ),
                                 ),
-                                SizedBox(width: 15),
                                 SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                    child: SizedBox(
                                   height: 55,
                                   child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          primary: Color(0xffFFC3B1E1)),
-                                      onPressed: () {},
-                                      child:
-                                          Icon(Icons.calendar_month_rounded)),
-                                ),
+                                      onPressed: () {
+                                        pickDateTime();
+                                        setState(() {
+                                          dateTime.toString();
+                                        });
+                                      },
+                                      style: OutlinedButton.styleFrom(
+                                          backgroundColor: Color(0xffFF171516),
+                                          side: BorderSide(
+                                              color: Color(0xffFF2F2B2D),
+                                              width: 1)),
+                                      child: Text(
+                                        '${dateTime.year}/${dateTime.month}/${dateTime.day}    $hours:$minutes',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                        ),
+                                      )),
+                                ))
                               ],
                             ),
                             SizedBox(height: 20),
@@ -176,4 +188,27 @@ class _TaskDetailsState extends State<TaskDetails> {
                       ),
                     ])))));
   }
+
+  Future pickDateTime() async {
+    DateTime? date = await pickDate();
+    if (date == null) return; //pressed cancel
+
+    TimeOfDay? time = await pickTime();
+    if (time == null) return; //pressed cancel
+
+    final dateTime =
+        DateTime(date.year, date.month, date.day, time.hour, time.minute);
+
+    print(dateTime);
+  }
+
+  Future<DateTime?> pickDate() => showDatePicker(
+      context: context,
+      initialDate: dateTime,
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2100));
+
+  Future<TimeOfDay?> pickTime() => showTimePicker(
+      context: context,
+      initialTime: TimeOfDay(hour: dateTime.hour, minute: dateTime.minute));
 }
