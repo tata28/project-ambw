@@ -163,9 +163,12 @@ class _FocusSessionState extends State<FocusSession> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) => MusicList(
-                                                    sessionDuration: "1.5",
-                                                    sessionRepitition: "3",
-                                                    breakDuration: "1",
+                                                    sessionDuration:
+                                                        _tfSessionDur.text,
+                                                    sessionRepitition:
+                                                        _tfRepetition.text,
+                                                    breakDuration:
+                                                        _tfBreakDur.text,
                                                   )));
                                     },
                                     child: Row(
@@ -198,9 +201,12 @@ class _FocusSessionState extends State<FocusSession> {
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   InSessionPage(
-                                                    sessionDuration: "1.5",
-                                                    sessionRepitition: "3",
-                                                    breakDuration: "0.5",
+                                                    sessionDuration:
+                                                        _tfSessionDur.text,
+                                                    sessionRepitition:
+                                                        _tfRepetition.text,
+                                                    breakDuration:
+                                                        _tfBreakDur.text,
                                                     musicURL: widget.musicURL,
                                                   )));
                                     },

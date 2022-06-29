@@ -41,7 +41,9 @@ class _TaskDetailsState extends State<TaskDetails> {
                                     primary: Color.fromRGBO(23, 21, 22, 1),
                                     alignment: Alignment.centerLeft,
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
                                   child: Text("Cancel",
                                       style: TextStyle(fontSize: 18))),
                             ),
@@ -69,9 +71,7 @@ class _TaskDetailsState extends State<TaskDetails> {
                           padding: EdgeInsets.all(15),
                           child: Column(children: [
                             TextField(
-                              readOnly: true,
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 160, 158, 158)),
+                              style: TextStyle(color: Colors.white),
                               textCapitalization: TextCapitalization.words,
                               textDirection: TextDirection.ltr,
                               decoration: InputDecoration(
@@ -142,9 +142,6 @@ class _TaskDetailsState extends State<TaskDetails> {
                                   child: ElevatedButton(
                                       onPressed: () {
                                         pickDateTime();
-                                        setState(() {
-                                          dateTime.toString();
-                                        });
                                       },
                                       style: OutlinedButton.styleFrom(
                                           backgroundColor: Color(0xffFF171516),
@@ -199,6 +196,7 @@ class _TaskDetailsState extends State<TaskDetails> {
     final dateTime =
         DateTime(date.year, date.month, date.day, time.hour, time.minute);
 
+    setState(() => this.dateTime = dateTime);
     print(dateTime);
   }
 
