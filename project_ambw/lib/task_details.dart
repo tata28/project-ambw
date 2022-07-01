@@ -26,7 +26,7 @@ class _TaskDetailsState extends State<TaskDetails> {
   ];
 
   bool isVisible = false;
-  String valueChoose = "Add New Category";
+  String? valueChoose = null;
   bool newCategory = false;
   DateTime dateTime = DateTime(2022, 12, 24, 5, 30);
   // late int dateChoose = dateTime.microsecondsSinceEpoch;
@@ -48,7 +48,7 @@ class _TaskDetailsState extends State<TaskDetails> {
     }
 
     return MaterialApp(
-        title: "focus session",
+        title: "Task Details",
         home: Scaffold(
             resizeToAvoidBottomInset: false,
             backgroundColor: Colors.black,
@@ -88,7 +88,7 @@ class _TaskDetailsState extends State<TaskDetails> {
                                         itemId: "1",
                                         itemTitle: _tfTitle.text,
                                         itemDetail: _tfDetail.text,
-                                        itemCategory: valueChoose,
+                                        itemCategory: valueChoose!,
                                         itemDone: false,
                                         itemTime: Timestamp.fromDate(dateTime));
                                     Database.tambahData(item: dtBaru);
@@ -163,7 +163,8 @@ class _TaskDetailsState extends State<TaskDetails> {
                                             (i) => snapshot.data!.docs[i]
                                                 ['category']);
                                         listItem.add('Add New Category');
-                                        print(listItem);
+
+                                        //print(listItem);
                                         return DropdownButton<String>(
                                           hint: Text(
                                             "Select Category",
