@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:project_ambw/dataclass.dart';
+import 'package:project_ambw/test_dropdown.dart';
 import 'package:project_ambw/to_do_list.dart';
 import 'dbservices.dart';
 import 'firebase_options.dart';
@@ -32,13 +33,7 @@ class _MyAppState extends State<MyApp> {
   int currentIndex = 0;
   final screens = [
     Home(),
-    FocusSession(
-      sessionDuration: "",
-      sessionRepitition: "",
-      breakDuration: "",
-      musicURL: "",
-      musicName: "Choose Music",
-    ),
+    TestDropdown(),
     ToDoList(),
     Completed(),
     SettingsPage()
@@ -70,7 +65,7 @@ class _MyAppState extends State<MyApp> {
                 icon: ImageIcon(
                   AssetImage("assets/img/focus_session.png"),
                 ),
-                label: 'Focus Session',
+                label: 'Test Dropdown',
                 backgroundColor: Colors.transparent,
               ),
               BottomNavigationBarItem(

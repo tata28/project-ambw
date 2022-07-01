@@ -31,6 +31,14 @@ class _FocusSessionState extends State<FocusSession> {
   TextEditingController _tfBreakDur = TextEditingController();
 
   @override
+  void dispose() {
+    _tfSessionDur.dispose();
+    _tfRepetition.dispose();
+    _tfBreakDur.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
         title: "focus session",
