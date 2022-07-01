@@ -40,7 +40,7 @@ class _TestDropdownState extends State<TestDropdown> {
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
-                      .collection("tabelTask")
+                      .collection("tabelCategory")
                       .orderBy("category")
                       .snapshots(),
                   builder: (context, snapshot) {
@@ -51,8 +51,54 @@ class _TestDropdownState extends State<TestDropdown> {
                               fontWeight: FontWeight.w600,
                               fontSize: 16));
                     } else if (snapshot.hasData || snapshot.data != null) {
-                        List<String> nya=snapshot.
+                      //List<String> nya=snapshot.
+                      listItem = List<String>.generate(
+                          snapshot.data!.docs.length,
+                          (i) => snapshot.data!.docs[i]['category']);
+                      listItem.add('Add New Category');
+                      print(listItem);
+                      return DropdownButton<String>(
+                        hint: Text(
+                          "Select Category",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        dropdownColor: Color(0xffFF2F2B2D),
+                        icon: Icon(Icons.arrow_drop_down),
+                        iconSize: 36,
+                        isExpanded: true,
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                        value: valueChoose,
+                        onChanged: (newValue) {
+                          setState(() {
+                            valueChoose = (newValue as String?)!;
+                            newCategory = false;
+                          });
+                          if (valueChoose == "Add New Category") {
+                            setState(() {
+                              isVisible = true;
+                              newCategory = true;
+                            });
+                          } else {
+                            setState(() {
+                              isVisible = false;
+                            });
+                          }
+                        },
+                        items: listItem.map((valueItem) {
+                          return DropdownMenuItem(
+                            value: valueItem,
+                            child: Text(valueItem),
+                          );
+                        }).toList(),
+                      );
                     }
+                    return Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          Colors.pinkAccent,
+                        ),
+                      ),
+                    );
                   }),
             ),
             Visibility(
