@@ -133,13 +133,10 @@ class _HomeState extends State<Home> {
                                     ],
                                   ),
                                   OutlinedButton(
-                                    onPressed: () {
-                                        Navigator.of(context).push(MaterialPageRoute(
+                                    onPressed: () {itemTask task = itemTask(itemId: "", itemTitle: "", itemDetail: "", itemCategory: "", itemDone: false, itemTime: Timestamp.now());
+                                                          Navigator.of(context).push(MaterialPageRoute(
                                                               builder: (((context) => TaskDetails(
-                                                                  title: "",
-                                                                  category:"",
-                                                                  dueDate: Timestamp.now(),
-                                                                  details: "")))));
+                                                                  task:task)))));
                                     },
                                     child: Text("+ Add New Task",
                                         style: TextStyle(
@@ -344,23 +341,40 @@ class _HomeState extends State<Home> {
                                                       child: IconButton(
                                                         tooltip: 'Edit Task',
                                                         onPressed: () {
+                                                          itemTask task = itemTask(itemId: snapshot
+                                                                      .data!
+                                                                      .docs[
+                                                                          index]
+                                                                          [
+                                                                          'id'], itemTitle: snapshot
+                                                                      .data!
+                                                                      .docs[
+                                                                          index]
+                                                                          [
+                                                                          'title'], itemDetail: snapshot
+                                                                      .data!
+                                                                      .docs[
+                                                                          index]
+                                                                          [
+                                                                          'detail'], itemCategory: snapshot
+                                                                      .data!
+                                                                      .docs[
+                                                                          index]
+                                                                          [
+                                                                          'category'], itemDone: snapshot
+                                                                      .data!
+                                                                      .docs[
+                                                                          index]
+                                                                          [
+                                                                          'done'], itemTime: snapshot
+                                                                      .data!
+                                                                      .docs[
+                                                                          index]
+                                                                          [
+                                                                          'time']);
                                                           Navigator.of(context).push(MaterialPageRoute(
                                                               builder: (((context) => TaskDetails(
-                                                                  title: snapshot
-                                                                          .data
-                                                                          ?.docs[index]
-                                                                      ['title'],
-                                                                  category: snapshot
-                                                                          .data
-                                                                          ?.docs[index][
-                                                                      'category'],
-                                                                  dueDate: snapshot
-                                                                          .data
-                                                                          ?.docs[index]
-                                                                      ['time'],
-                                                                  details: snapshot
-                                                                      .data
-                                                                      ?.docs[index]['detail'])))));
+                                                                  task:task)))));
                                                         },
                                                         icon: ImageIcon(
                                                           AssetImage(

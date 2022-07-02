@@ -61,16 +61,18 @@ class _CompletedState extends State<Completed> {
                     child: IconButton(
                       tooltip: 'View Task',
                       onPressed: () {
+                        itemTask task = itemTask(
+                            itemId: document.docs[i]['id'],
+                            itemTitle: document.docs[i]['title'],
+                            itemDetail: document.docs[i]['detail'],
+                            itemCategory: document.docs[i]['category'],
+                            itemDone: document.docs[i]['done'],
+                            itemTime: document.docs[i]['time']);
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (((context) => TaskDetails(
-                                title: document.docs[i]['title'],
-                                category: document.docs[i]['title'],
-                                dueDate: document.docs[i]['title']['time'],
-                                details: document.docs[i]['title']
-                                    ['detail'])))));
+                            builder: (((context) => TaskDetails(task: task)))));
                       },
                       icon: ImageIcon(
-                        AssetImage("assets/img/info.png"),
+                        AssetImage("assets/img/edit.png"),
                         color: Color.fromRGBO(228, 107, 103, 0.91),
                       ),
                     ),

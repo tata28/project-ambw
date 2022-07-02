@@ -11,16 +11,9 @@ import 'dbservices2.dart';
 
 class TaskDetails extends StatefulWidget {
   // const TaskDetails({Key? key}) : super(key: key);
-  final String title, category, details;
-  final Timestamp dueDate;
+  final itemTask task;
   // final String dueDate;
-  const TaskDetails(
-      {Key? key,
-      required this.title,
-      required this.category,
-      required this.dueDate,
-      required this.details})
-      : super(key: key);
+  const TaskDetails({Key? key, required this.task}) : super(key: key);
 
   @override
   State<TaskDetails> createState() => _TaskDetailsState();
@@ -36,38 +29,51 @@ class _TaskDetailsState extends State<TaskDetails> {
     "Item 5"
   ];
 
-  bool isVisible = true;
-  String valueChoose = "Add New Category";
+  bool isVisible = false;
+  String? valueChoose = null;
   bool newCategory = false;
+  //late DateTime dateTime;
   DateTime dateTime = DateTime.now();
+  late TextEditingController _tfTitle;
+  late TextEditingController _tfNewCategory;
+  late TextEditingController _tfDetail;
+
   // late int dateChoose = dateTime.microsecondsSinceEpoch;
+
+  @override
+  void initState() {
+    super.initState();
+
+    dateTime = widget.task.itemTime.toDate();
+
+    _tfTitle = TextEditingController(text: widget.task.itemTitle);
+    _tfNewCategory = TextEditingController();
+    _tfDetail = TextEditingController(text: widget.task.itemDetail);
+    //setState() {
+    if (widget.task.itemCategory != "") {
+      valueChoose = widget.task.itemCategory;
+    }
+    //}
+
+    Future.delayed(const Duration(seconds: 2), () {
+      returnDateTime();
+    });
+  }
+
+  @override
+  void dispose() {
+    _tfTitle.dispose();
+    _tfNewCategory.dispose();
+    _tfDetail.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final hours = dateTime.hour.toString().padLeft(2, '0');
     final minutes = dateTime.minute.toString().padLeft(2, '0');
-    TextEditingController _tfTitle = TextEditingController(text: widget.title);
-    TextEditingController _tfNewCategory = TextEditingController();
-    TextEditingController _tfDetail =
-        TextEditingController(text: widget.details);
 
-    @override
-    void dispose() {
-      _tfTitle.dispose();
-      _tfNewCategory.dispose();
-      _tfDetail.dispose();
-      super.dispose();
-    }
-
-    @override
-    void initState() {
-      super.initState();
-
-      Future.delayed(const Duration(seconds: 2), () {
-        returnDateTime();
-      });
-    }
-
+    print('valuechoose di Build: $valueChoose');
     return MaterialApp(
         title: "Task Details",
         home: Scaffold(
@@ -102,28 +108,50 @@ class _TaskDetailsState extends State<TaskDetails> {
                                     alignment: Alignment.centerRight,
                                   ),
                                   onPressed: () {
-                                    setState(() {});
-                                    if (newCategory) {
-                                      valueChoose = _tfNewCategory.text;
-                                    }
-                                    print(valueChoose);
-                                    final dtBaru = itemTask(
-                                        itemId: "1",
-                                        itemTitle: _tfTitle.text,
-                                        itemDetail: _tfDetail.text,
-                                        itemCategory: valueChoose,
-                                        itemDone: false,
-                                        itemTime: Timestamp.fromDate(dateTime));
-                                    Database.tambahData(item: dtBaru);
+                                    setState(() {
+                                      //print(valueChoose);
 
-                                    final dtBaru2 = itemCategory(
-                                        idItem: valueChoose,
-                                        category: valueChoose);
-                                    if (newCategory) {
-                                      Database2.tambahData(item: dtBaru2);
-                                    }
+                                      if (valueChoose != null) {
+                                        String selectedCategory = valueChoose!;
+                                        if (valueChoose == "Add New Category") {
+                                          selectedCategory =
+                                              _tfNewCategory.text;
 
-                                    Navigator.pop(context);
+                                          Database2.tambahData(
+                                              category: selectedCategory);
+                                        }
+                                        if (widget.task.itemId == "") {
+                                          // add task
+
+                                          final dtBaru = itemTask(
+                                              itemId: "1",
+                                              itemTitle: _tfTitle.text,
+                                              itemDetail: _tfDetail.text,
+                                              itemCategory: selectedCategory,
+                                              itemDone: false,
+                                              itemTime:
+                                                  Timestamp.fromDate(dateTime));
+                                          Database.tambahData(item: dtBaru);
+                                        } else {
+                                          print('Value baru: $valueChoose');
+                                          final dtBaru = itemTask(
+                                              itemId: widget.task.itemId,
+                                              itemTitle: _tfTitle.text,
+                                              itemDetail: _tfDetail.text,
+                                              itemCategory: selectedCategory,
+                                              itemDone: widget.task.itemDone,
+                                              itemTime:
+                                                  Timestamp.fromDate(dateTime));
+                                          Database.ubahData(item: dtBaru);
+                                        }
+
+                                        Navigator.pop(context);
+                                      }
+                                    });
+                                    // if (newCategory) {
+                                    //   valueChoose = _tfNewCategory.text;
+                                    // }
+
                                     // Navigator.push(
                                     //     context,
                                     //     MaterialPageRoute(
@@ -196,7 +224,7 @@ class _TaskDetailsState extends State<TaskDetails> {
                                         listItem.add('Add New Category');
 
                                         //print(listItem);
-                                        return DropdownButton<String>(
+                                        return DropdownButtonFormField<String>(
                                           hint: Text(
                                             "Select Category",
                                             style:
@@ -212,8 +240,11 @@ class _TaskDetailsState extends State<TaskDetails> {
                                           value: valueChoose,
                                           onChanged: (newValue) {
                                             setState(() {
-                                              valueChoose =
-                                                  (newValue as String?)!;
+                                              print('masuik');
+                                              print('newVal: $newValue');
+
+                                              valueChoose = newValue!;
+                                              print('vacho: $valueChoose');
                                               newCategory = false;
                                             });
                                             if (valueChoose ==
@@ -358,20 +389,24 @@ class _TaskDetailsState extends State<TaskDetails> {
     print(dateTime);
   }
 
-  Future<DateTime?> pickDate() => showDatePicker(
-      context: context,
-      initialDate: dateTime,
-      firstDate: DateTime(1900),
-      lastDate: DateTime(2100));
+  Future<DateTime?> pickDate() {
+    return showDatePicker(
+        context: context,
+        initialDate: dateTime,
+        firstDate: DateTime(1900),
+        lastDate: DateTime(2100));
+  }
 
-  Future<TimeOfDay?> pickTime() => showTimePicker(
-      context: context,
-      initialTime: TimeOfDay(hour: dateTime.hour, minute: dateTime.minute));
+  Future<TimeOfDay?> pickTime() {
+    return showTimePicker(
+        context: context,
+        initialTime: TimeOfDay(hour: dateTime.hour, minute: dateTime.minute));
+  }
 
   void returnDateTime() {
     setState(() {
-      dateTime = widget.dueDate.toDate();
-      valueChoose = widget.category.toString();
+      //dateTime = widget.task.itemTime.toDate();
+      //valueChoose = widget.task.itemCategory.toString();
     });
   }
 }

@@ -282,16 +282,6 @@ class _MusicListState extends State<MusicList> {
                                 ),
                               ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: Text("Home"))
-                              ],
-                            )
                           ]),
                     ),
                   ),

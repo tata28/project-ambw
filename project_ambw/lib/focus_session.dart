@@ -64,8 +64,7 @@ class _FocusSessionState extends State<FocusSession> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               ImageIcon(
-                                AssetImage(
-                                    "assets/img/focus_session_selected.png"),
+                                AssetImage("assets/img/focus_session.png"),
                                 color: Color(0xffFFFE5ABB6),
                               ),
                               Container(

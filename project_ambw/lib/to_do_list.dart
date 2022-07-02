@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:project_ambw/task_details.dart';
 
 import 'dataclass.dart';
 import 'dbservices.dart';
@@ -82,7 +83,18 @@ class _ToDoListState extends State<ToDoList> {
                     margin: EdgeInsets.only(right: 5),
                     child: IconButton(
                         tooltip: 'Edit Task',
-                        onPressed: () {},
+                        onPressed: () {
+                          itemTask task = itemTask(
+                              itemId: document.docs[i]['id'],
+                              itemTitle: document.docs[i]['title'],
+                              itemDetail: document.docs[i]['detail'],
+                              itemCategory: document.docs[i]['category'],
+                              itemDone: document.docs[i]['done'],
+                              itemTime: document.docs[i]['time']);
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (((context) =>
+                                  TaskDetails(task: task)))));
+                        },
                         icon: ImageIcon(
                           AssetImage("assets/img/edit.png"),
                           color: Color.fromRGBO(139, 211, 206, 1),
@@ -123,8 +135,8 @@ class _ToDoListState extends State<ToDoList> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Icon(
-                  Icons.checklist,
+                ImageIcon(
+                  AssetImage("assets/img/to_do_list.png"),
                   color: Color.fromRGBO(139, 211, 206, 1),
                 ),
                 Container(
@@ -143,7 +155,17 @@ class _ToDoListState extends State<ToDoList> {
               width: double.infinity,
               margin: EdgeInsets.fromLTRB(0, 20, 0, 10),
               child: ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  itemTask task = itemTask(
+                      itemId: "",
+                      itemTitle: "",
+                      itemDetail: "",
+                      itemCategory: "",
+                      itemDone: false,
+                      itemTime: Timestamp.now());
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (((context) => TaskDetails(task: task)))));
+                },
                 icon: Icon(
                   Icons.add,
                   color: Color.fromRGBO(139, 211, 206, 1),
@@ -278,16 +300,6 @@ class _ToDoListState extends State<ToDoList> {
                 ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text("Home"))
-              ],
-            )
           ]),
         ),
       ),
