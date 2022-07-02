@@ -32,6 +32,7 @@ class _InSessionPageState extends State<InSessionPage> {
   final musicPlayer = AudioPlayer();
   bool status_music = true;
   String music_url = "";
+  bool isRunning = true;
   @override
   void initState() {
     double d1 = double.parse(widget.sessionDuration);
@@ -100,6 +101,7 @@ class _InSessionPageState extends State<InSessionPage> {
           stopTimer();
           musicPlayer.stop();
           musicPlayer.setReleaseMode(ReleaseMode.STOP);
+          Navigator.pop(context);
         }
       });
     });
@@ -281,18 +283,21 @@ class _InSessionPageState extends State<InSessionPage> {
                                       margin: EdgeInsets.only(top: 20),
                                       child: ElevatedButton(
                                         onPressed: () {
-                                          final isRunning = timer == null
-                                              ? false
-                                              : timer!.isActive;
-
-                                          if (isRunning) {
-                                            stopTimer();
-                                          } else {
-                                            startTimer();
-                                          }
+                                          setState(() {
+                                            if (isRunning) {
+                                              isRunning = false;
+                                              stopTimer();
+                                            } else {
+                                              isRunning = true;
+                                              startTimer();
+                                            }
+                                          });
                                         },
-                                        child: Icon(Icons.stop,
-                                            color: Colors.black, size: 32),
+                                        child: isRunning
+                                            ? Icon(Icons.stop,
+                                                color: Colors.black, size: 32)
+                                            : Icon(Icons.play_arrow,
+                                                color: Colors.black, size: 32),
                                         style: ElevatedButton.styleFrom(
                                           shape: CircleBorder(),
                                           padding: EdgeInsets.all(12),
