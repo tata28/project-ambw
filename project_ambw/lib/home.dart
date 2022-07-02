@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -358,7 +356,26 @@ class _HomeState extends State<Home> {
                                                           right: 0),
                                                       child: IconButton(
                                                         tooltip: 'Edit Task',
-                                                        onPressed: () {},
+                                                        onPressed: () {
+                                                          MaterialPageRoute(
+                                                              builder: ((context) => TaskDetails(
+                                                                  title: snapshot
+                                                                          .data!
+                                                                          .docs[index]
+                                                                      ['title'],
+                                                                  category: snapshot
+                                                                          .data!
+                                                                          .docs[index][
+                                                                      'category'],
+                                                                  dueDate: snapshot
+                                                                          .data!
+                                                                          .docs[index][
+                                                                      'dueDate'],
+                                                                  details: snapshot
+                                                                          .data!
+                                                                          .docs[index]
+                                                                      ['details'])));
+                                                        },
                                                         icon: ImageIcon(
                                                           AssetImage(
                                                               "assets/img/edit.png"),

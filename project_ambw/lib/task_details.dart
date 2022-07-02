@@ -36,7 +36,7 @@ class _TaskDetailsState extends State<TaskDetails> {
     "Item 5"
   ];
 
-  bool isVisible = false;
+  bool isVisible = true;
   String valueChoose = "Add New Category";
   bool newCategory = false;
   DateTime dateTime = DateTime.now();
@@ -106,6 +106,7 @@ class _TaskDetailsState extends State<TaskDetails> {
                                     if (newCategory) {
                                       valueChoose = _tfNewCategory.text;
                                     }
+
                                     final dtBaru = itemTask(
                                         itemId: "1",
                                         itemTitle: _tfTitle.text,
