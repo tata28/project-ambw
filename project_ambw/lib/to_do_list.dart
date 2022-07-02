@@ -104,6 +104,10 @@ class _ToDoListState extends State<ToDoList> {
                     tooltip: 'Delete Task',
                     onPressed: () {
                       Database.hapusData(idTask: document.docs[i]['id']);
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(
+                            'Task \"${document.docs[i]['title']}\" deleted'),
+                      ));
                     },
                     icon: ImageIcon(
                       AssetImage("assets/img/delete.png"),
