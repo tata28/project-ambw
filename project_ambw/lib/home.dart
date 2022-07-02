@@ -405,45 +405,45 @@ class _HomeState extends State<Home> {
                                               ]));
                                     }),
                               ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  // ElevatedButton(
-                                  //     onPressed: () {
-                                  //       Navigator.push(
-                                  //           context,
-                                  //           MaterialPageRoute(
-                                  //               builder: (context) =>
-                                  //                   MusicList()));
-                                  //     },
-                                  //     child: Text("MusicList")),
-                                  ElevatedButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ToDoList()));
-                                      },
-                                      child: Text("ToDoList")),
-                                  ElevatedButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    InSessionPage(
-                                                      sessionDuration: "1.5",
-                                                      sessionRepitition: "3",
-                                                      breakDuration: "0.5",
-                                                      musicURL:
-                                                          "https://firebasestorage.googleapis.com/v0/b/my-task-9254e.appspot.com/o/musics%2FCalum%20Scott%20-%20You%20Are%20The%20Reason%20(Official).mp3?alt=media&token=675eacea-c01a-45a5-b3a2-2de2009ed50d",
-                                                    )));
-                                      },
-                                      child: Text("In Session Page"))
-                                ],
-                              )
+                              // Row(
+                              //   mainAxisAlignment:
+                              //       MainAxisAlignment.spaceAround,
+                              //   children: [
+                              //     // ElevatedButton(
+                              //     //     onPressed: () {
+                              //     //       Navigator.push(
+                              //     //           context,
+                              //     //           MaterialPageRoute(
+                              //     //               builder: (context) =>
+                              //     //                   MusicList()));
+                              //     //     },
+                              //     //     child: Text("MusicList")),
+                              //     ElevatedButton(
+                              //         onPressed: () {
+                              //           Navigator.push(
+                              //               context,
+                              //               MaterialPageRoute(
+                              //                   builder: (context) =>
+                              //                       ToDoList()));
+                              //         },
+                              //         child: Text("ToDoList")),
+                              //     ElevatedButton(
+                              //         onPressed: () {
+                              //           Navigator.push(
+                              //               context,
+                              //               MaterialPageRoute(
+                              //                   builder: (context) =>
+                              //                       InSessionPage(
+                              //                         sessionDuration: "1.5",
+                              //                         sessionRepitition: "3",
+                              //                         breakDuration: "0.5",
+                              //                         musicURL:
+                              //                             "https://firebasestorage.googleapis.com/v0/b/my-task-9254e.appspot.com/o/musics%2FCalum%20Scott%20-%20You%20Are%20The%20Reason%20(Official).mp3?alt=media&token=675eacea-c01a-45a5-b3a2-2de2009ed50d",
+                              //                       )));
+                              //         },
+                              //         child: Text("In Session Page"))
+                              //   ],
+                              // )
                             ]),
                       );
                     }
