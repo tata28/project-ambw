@@ -81,21 +81,20 @@ class _ToDoListState extends State<ToDoList> {
                   Container(
                     margin: EdgeInsets.only(right: 5),
                     child: IconButton(
-                      tooltip: 'Edit Task',
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.edit_note,
-                        color: Color.fromRGBO(139, 211, 206, 1),
-                      ),
-                    ),
+                        tooltip: 'Edit Task',
+                        onPressed: () {},
+                        icon: ImageIcon(
+                          AssetImage("assets/img/edit.png"),
+                          color: Color.fromRGBO(139, 211, 206, 1),
+                        )),
                   ),
                   IconButton(
                     tooltip: 'Delete Task',
                     onPressed: () {
                       Database.hapusData(idTask: document.docs[i]['id']);
                     },
-                    icon: Icon(
-                      Icons.delete,
+                    icon: ImageIcon(
+                      AssetImage("assets/img/delete.png"),
                       color: Color.fromRGBO(139, 211, 206, 1),
                     ),
                   )
