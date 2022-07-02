@@ -134,25 +134,12 @@ class _HomeState extends State<Home> {
                                   ),
                                   OutlinedButton(
                                     onPressed: () {
-                                      // coba tambah data
-                                      // itemTask newItem = itemTask(
-                                      //     itemId: "id baru",
-                                      //     itemTitle: "Tugas Baru",
-                                      //     itemDetail: "test",
-                                      //     itemCategory: "Sekolah",
-                                      //     itemDone: false,
-                                      //     itemTime: Timestamp.fromDate(
-                                      //         DateTime.now().add(
-                                      //             const Duration(hours: 2))));
-                                      // Database.tambahData(item: newItem);
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => TaskDetails(
-                                                  title: "",
-                                                  category: "",
-                                                  dueDate: Timestamp.now(),
-                                                  details: "")));
+                                        Navigator.of(context).push(MaterialPageRoute(
+                                                              builder: (((context) => TaskDetails(
+                                                                  title: "",
+                                                                  category:"",
+                                                                  dueDate: Timestamp.now(),
+                                                                  details: "")))));
                                     },
                                     child: Text("+ Add New Task",
                                         style: TextStyle(
@@ -357,24 +344,23 @@ class _HomeState extends State<Home> {
                                                       child: IconButton(
                                                         tooltip: 'Edit Task',
                                                         onPressed: () {
-                                                          MaterialPageRoute(
-                                                              builder: ((context) => TaskDetails(
+                                                          Navigator.of(context).push(MaterialPageRoute(
+                                                              builder: (((context) => TaskDetails(
                                                                   title: snapshot
-                                                                          .data!
-                                                                          .docs[index]
+                                                                          .data
+                                                                          ?.docs[index]
                                                                       ['title'],
                                                                   category: snapshot
-                                                                          .data!
-                                                                          .docs[index][
+                                                                          .data
+                                                                          ?.docs[index][
                                                                       'category'],
                                                                   dueDate: snapshot
-                                                                          .data!
-                                                                          .docs[index][
-                                                                      'dueDate'],
+                                                                          .data
+                                                                          ?.docs[index]
+                                                                      ['time'],
                                                                   details: snapshot
-                                                                          .data!
-                                                                          .docs[index]
-                                                                      ['details'])));
+                                                                      .data
+                                                                      ?.docs[index]['detail'])))));
                                                         },
                                                         icon: ImageIcon(
                                                           AssetImage(

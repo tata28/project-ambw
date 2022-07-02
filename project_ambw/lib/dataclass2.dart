@@ -1,28 +1,28 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class itemCategory {
-  String itemId;
+  String idItem;
   final String category;
 
   itemCategory({
-    required this.itemId,
+    required this.idItem,
     required this.category,
   });
   Map<String, dynamic> toJson() {
     return {
-      "id": itemId,
+      "id": idItem,
       "category": itemCategory,
     };
   }
 
   factory itemCategory.fromJson(Map<String, dynamic> json) {
     return itemCategory(
-      itemId: json['id'],
+      idItem: json['id'],
       category: json['category'],
     );
   }
 
   void setId(String newID) {
-    this.itemId = newID;
+    this.idItem = newID;
   }
 }

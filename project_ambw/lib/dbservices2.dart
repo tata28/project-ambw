@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dataclass2.dart';
+import 'package:project_ambw/dataclass2.dart';
 
 CollectionReference tblCategory =
     FirebaseFirestore.instance.collection("tabelCategory");
@@ -12,15 +12,15 @@ class Database2 {
   static Future<void> tambahData({required itemCategory item}) async {
     DocumentReference docRef = tblCategory.doc();
     print(docRef.id);
-    item.itemId = docRef.id;
+    item.idItem = docRef.id;
     await docRef
         .set(item.toJson())
-        .whenComplete(() => print("data berhasil diinput"))
+        .whenComplete(() => print("data kateogori berhasil diinput"))
         .catchError((e) => print(e));
   }
 
   static Future<void> ubahData({required itemCategory item}) async {
-    DocumentReference docRef = tblCategory.doc(item.itemId);
+    DocumentReference docRef = tblCategory.doc(item.idItem);
     await docRef
         .update(item.toJson())
         .whenComplete(() => print("data berhasil diubah"))
