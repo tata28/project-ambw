@@ -5,11 +5,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:project_ambw/dataclass.dart';
+import 'package:project_ambw/dataclass2.dart';
 import 'package:project_ambw/dbservices.dart';
 import 'package:project_ambw/home.dart';
 
+import 'dbservices2.dart';
+
 class TaskDetails extends StatefulWidget {
-  const TaskDetails({Key? key}) : super(key: key);
+  // const TaskDetails({Key? key}) : super(key: key);
+  final String title, category, details;
+  final Timestamp dueDate;
+  // final String dueDate;
+  const TaskDetails(
+      {Key? key,
+      required this.title,
+      required this.category,
+      required this.dueDate,
+      required this.details})
+      : super(key: key);
 
   @override
   State<TaskDetails> createState() => _TaskDetailsState();
@@ -28,16 +41,18 @@ class _TaskDetailsState extends State<TaskDetails> {
   bool isVisible = false;
   String? valueChoose = null;
   bool newCategory = false;
-  DateTime dateTime = DateTime(2022, 12, 24, 5, 30);
+
+  DateTime dateTime = DateTime.now();
   // late int dateChoose = dateTime.microsecondsSinceEpoch;
 
   @override
   Widget build(BuildContext context) {
     final hours = dateTime.hour.toString().padLeft(2, '0');
     final minutes = dateTime.minute.toString().padLeft(2, '0');
-    TextEditingController _tfTitle = TextEditingController();
+    TextEditingController _tfTitle = TextEditingController(text: widget.title);
     TextEditingController _tfNewCategory = TextEditingController();
-    TextEditingController _tfDetail = TextEditingController();
+    TextEditingController _tfDetail =
+        TextEditingController(text: widget.details);
 
     @override
     void dispose() {
@@ -45,6 +60,15 @@ class _TaskDetailsState extends State<TaskDetails> {
       _tfNewCategory.dispose();
       _tfDetail.dispose();
       super.dispose();
+    }
+
+    @override
+    void initState() {
+      super.initState();
+
+      Future.delayed(const Duration(seconds: 2), () {
+        returnDateTime();
+      });
     }
 
     return MaterialApp(
@@ -81,6 +105,7 @@ class _TaskDetailsState extends State<TaskDetails> {
                                     alignment: Alignment.centerRight,
                                   ),
                                   onPressed: () {
+                                    setState(() {});
                                     if (newCategory) {
                                       valueChoose = _tfNewCategory.text;
                                     }
@@ -92,6 +117,9 @@ class _TaskDetailsState extends State<TaskDetails> {
                                         itemDone: false,
                                         itemTime: Timestamp.fromDate(dateTime));
                                     Database.tambahData(item: dtBaru);
+                                    final dtBaru2 = itemCategory(
+                                        itemId: "1", category: valueChoose);
+                                    Database2.tambahData(item: dtBaru2);
                                     // Navigator.pop(context);
                                     // Navigator.push(
                                     //     context,
@@ -336,4 +364,10 @@ class _TaskDetailsState extends State<TaskDetails> {
   Future<TimeOfDay?> pickTime() => showTimePicker(
       context: context,
       initialTime: TimeOfDay(hour: dateTime.hour, minute: dateTime.minute));
+
+  void returnDateTime() {
+    setState(() {
+      dateTime = widget.dueDate.toDate();
+    });
+  }
 }

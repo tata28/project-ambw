@@ -149,7 +149,7 @@ class _HomeState extends State<Home> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  TaskDetails()));
+                                                 TaskDetails(title: "title", category: "category", dueDate: "dueDate", details: "details")));
                                     },
                                     child: Text("+ Add New Task",
                                         style: TextStyle(

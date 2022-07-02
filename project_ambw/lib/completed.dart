@@ -64,7 +64,11 @@ class _CompletedState extends State<Completed> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => TaskDetails()));
+                                builder: (context) => TaskDetails(
+                                    title: "title",
+                                    category: "category",
+                                    dueDate: "",
+                                    details: "details")));
                       },
                       icon: ImageIcon(
                         AssetImage("assets/img/info.png"),

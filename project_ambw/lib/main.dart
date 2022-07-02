@@ -33,7 +33,12 @@ class _MyAppState extends State<MyApp> {
   int currentIndex = 0;
   final screens = [
     Home(),
-    TestDropdown(),
+    FocusSession(
+        sessionDuration: "1",
+        sessionRepitition: "1",
+        breakDuration: "1",
+        musicURL: "1",
+        musicName: "1"),
     ToDoList(),
     Completed(),
     SettingsPage()
@@ -65,7 +70,7 @@ class _MyAppState extends State<MyApp> {
                 icon: ImageIcon(
                   AssetImage("assets/img/focus_session.png"),
                 ),
-                label: 'Test Dropdown',
+                label: 'Focus Session',
                 backgroundColor: Colors.transparent,
               ),
               BottomNavigationBarItem(

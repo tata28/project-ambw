@@ -91,7 +91,7 @@ class _TaskDetailsState extends State<TaskDetails> {
                                         itemCategory: valueChoose,
                                         itemDone: false,
                                         itemTime: Timestamp.fromDate(dateTime));
-                                    Database.tambahData(item: dtBaru);
+                                    Database.ubahData(item: dtBaru);
                                     // Navigator.pop(context);
                                     // Navigator.push(
                                     //     context,
