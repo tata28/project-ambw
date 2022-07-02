@@ -61,14 +61,13 @@ class _CompletedState extends State<Completed> {
                     child: IconButton(
                       tooltip: 'View Task',
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => TaskDetails(
-                                    title: document.docs[i]['title'],
-                                    category: document.docs[i]['category'],
-                                    dueDate: document.docs[i]['time'],
-                                    details: document.docs[i]['details'])));
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (((context) => TaskDetails(
+                                title: document.docs[i]['title'],
+                                category: document.docs[i]['title'],
+                                dueDate: document.docs[i]['title']['time'],
+                                details: document.docs[i]['title']
+                                    ['detail'])))));
                       },
                       icon: ImageIcon(
                         AssetImage("assets/img/info.png"),

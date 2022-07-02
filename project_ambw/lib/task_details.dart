@@ -115,8 +115,9 @@ class _TaskDetailsState extends State<TaskDetails> {
                                         itemDone: false,
                                         itemTime: Timestamp.fromDate(dateTime));
                                     Database.tambahData(item: dtBaru);
+
                                     final dtBaru2 = itemCategory(
-                                        itemId: valueChoose,
+                                        idItem: valueChoose,
                                         category: valueChoose);
                                     if (newCategory) {
                                       Database2.tambahData(item: dtBaru2);

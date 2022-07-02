@@ -33,11 +33,11 @@ class _MyAppState extends State<MyApp> {
   final screens = [
     Home(),
     FocusSession(
-        sessionDuration: "1",
-        sessionRepitition: "1",
-        breakDuration: "1",
-        musicURL: "1",
-        musicName: "1"),
+        sessionDuration: "",
+        sessionRepitition: "",
+        breakDuration: "",
+        musicURL: "",
+        musicName: "choose music"),
     ToDoList(),
     Completed(),
     SettingsPage()
