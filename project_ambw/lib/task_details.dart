@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -39,9 +37,8 @@ class _TaskDetailsState extends State<TaskDetails> {
   ];
 
   bool isVisible = false;
-  String? valueChoose = null;
+  String valueChoose = "Add New Category";
   bool newCategory = false;
-
   DateTime dateTime = DateTime.now();
   // late int dateChoose = dateTime.microsecondsSinceEpoch;
 
@@ -113,13 +110,16 @@ class _TaskDetailsState extends State<TaskDetails> {
                                         itemId: "1",
                                         itemTitle: _tfTitle.text,
                                         itemDetail: _tfDetail.text,
-                                        itemCategory: valueChoose!,
+                                        itemCategory: valueChoose,
                                         itemDone: false,
                                         itemTime: Timestamp.fromDate(dateTime));
                                     Database.tambahData(item: dtBaru);
                                     final dtBaru2 = itemCategory(
                                         itemId: "1", category: valueChoose);
-                                    Database2.tambahData(item: dtBaru2);
+                                    if (newCategory) {
+                                      Database2.tambahData(item: dtBaru2);
+                                    }
+
                                     // Navigator.pop(context);
                                     // Navigator.push(
                                     //     context,
@@ -368,6 +368,7 @@ class _TaskDetailsState extends State<TaskDetails> {
   void returnDateTime() {
     setState(() {
       dateTime = widget.dueDate.toDate();
+      valueChoose = widget.category.toString();
     });
   }
 }

@@ -65,10 +65,10 @@ class _CompletedState extends State<Completed> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => TaskDetails(
-                                    title: "title",
-                                    category: "category",
-                                    dueDate: "",
-                                    details: "details")));
+                                    title: document.docs[i]['title'],
+                                    category: document.docs[i]['category'],
+                                    dueDate: document.docs[i]['time'],
+                                    details: document.docs[i]['details'])));
                       },
                       icon: ImageIcon(
                         AssetImage("assets/img/info.png"),

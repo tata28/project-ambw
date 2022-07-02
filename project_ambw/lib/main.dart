@@ -14,7 +14,6 @@ import 'package:project_ambw/home.dart';
 import 'package:project_ambw/settings.dart';
 import 'focus_session.dart';
 import 'task_details.dart';
-import 'dart:ui';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

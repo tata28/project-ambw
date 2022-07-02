@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -148,8 +150,11 @@ class _HomeState extends State<Home> {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) =>
-                                                 TaskDetails(title: "title", category: "category", dueDate: "dueDate", details: "details")));
+                                              builder: (context) => TaskDetails(
+                                                  title: "",
+                                                  category: "",
+                                                  dueDate: Timestamp.now(),
+                                                  details: "")));
                                     },
                                     child: Text("+ Add New Task",
                                         style: TextStyle(
