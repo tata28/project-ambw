@@ -133,10 +133,18 @@ class _HomeState extends State<Home> {
                                     ],
                                   ),
                                   OutlinedButton(
-                                    onPressed: () {itemTask task = itemTask(itemId: "", itemTitle: "", itemDetail: "", itemCategory: "", itemDone: false, itemTime: Timestamp.now());
-                                                          Navigator.of(context).push(MaterialPageRoute(
-                                                              builder: (((context) => TaskDetails(
-                                                                  task:task)))));
+                                    onPressed: () {
+                                      itemTask task = itemTask(
+                                          itemId: "",
+                                          itemTitle: "",
+                                          itemDetail: "",
+                                          itemCategory: "",
+                                          itemDone: false,
+                                          itemTime: Timestamp.now());
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (((context) =>
+                                                  TaskDetails(task: task)))));
                                     },
                                     child: Text("+ Add New Task",
                                         style: TextStyle(
@@ -341,40 +349,32 @@ class _HomeState extends State<Home> {
                                                       child: IconButton(
                                                         tooltip: 'Edit Task',
                                                         onPressed: () {
-                                                          itemTask task = itemTask(itemId: snapshot
+                                                          itemTask task = itemTask(
+                                                              itemId: snapshot.data!.docs[index]
+                                                                  ['id'],
+                                                              itemTitle: snapshot
                                                                       .data!
-                                                                      .docs[
-                                                                          index]
-                                                                          [
-                                                                          'id'], itemTitle: snapshot
+                                                                      .docs[index]
+                                                                  ['title'],
+                                                              itemDetail: snapshot
                                                                       .data!
-                                                                      .docs[
-                                                                          index]
-                                                                          [
-                                                                          'title'], itemDetail: snapshot
+                                                                      .docs[index]
+                                                                  ['detail'],
+                                                              itemCategory: snapshot
                                                                       .data!
-                                                                      .docs[
-                                                                          index]
-                                                                          [
-                                                                          'detail'], itemCategory: snapshot
+                                                                      .docs[index]
+                                                                  ['category'],
+                                                              itemDone: snapshot
                                                                       .data!
-                                                                      .docs[
-                                                                          index]
-                                                                          [
-                                                                          'category'], itemDone: snapshot
-                                                                      .data!
-                                                                      .docs[
-                                                                          index]
-                                                                          [
-                                                                          'done'], itemTime: snapshot
-                                                                      .data!
-                                                                      .docs[
-                                                                          index]
-                                                                          [
-                                                                          'time']);
-                                                          Navigator.of(context).push(MaterialPageRoute(
-                                                              builder: (((context) => TaskDetails(
-                                                                  task:task)))));
+                                                                      .docs[index]
+                                                                  ['done'],
+                                                              itemTime: snapshot.data!.docs[index]['time']);
+                                                          Navigator.of(context).push(
+                                                              MaterialPageRoute(
+                                                                  builder: (((context) =>
+                                                                      TaskDetails(
+                                                                          task:
+                                                                              task)))));
                                                         },
                                                         icon: ImageIcon(
                                                           AssetImage(
@@ -392,6 +392,13 @@ class _HomeState extends State<Home> {
                                                                     .data!
                                                                     .docs[index]
                                                                 ['id']);
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                                SnackBar(
+                                                          content: Text(
+                                                              'Task \"${snapshot.data!.docs[index]['title']}\" deleted'),
+                                                        ));
                                                       },
                                                       icon: ImageIcon(
                                                         AssetImage(
