@@ -45,7 +45,7 @@ class _FocusSessionState extends State<FocusSession> {
         home: Scaffold(
             resizeToAvoidBottomInset: false,
             backgroundColor: Colors.black,
-            body: Container(
+            body: SingleChildScrollView(
                 padding: EdgeInsets.all(20),
                 child: SafeArea(
                   child: Column(
@@ -156,50 +156,49 @@ class _FocusSessionState extends State<FocusSession> {
                                   fontSize: 17)),
                         ),
                         SizedBox(height: 20),
-                        Flexible(
-                          flex: 1,
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                  width: 350,
-                                  height: 55,
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        primary: Color(0xffFF2F2B2D)),
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => MusicList(
-                                                    sessionDuration:
-                                                        _tfSessionDur.text,
-                                                    sessionRepitition:
-                                                        _tfRepetition.text,
-                                                    breakDuration:
-                                                        _tfBreakDur.text,
-                                                  )));
-                                    },
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            widget.musicName,
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            softWrap: false,
-                                          ),
+                        Column(
+                          children: [
+                            SizedBox(
+                                width: double.infinity,
+                                height: 55,
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      primary: Color(0xffFF2F2B2D)),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => MusicList(
+                                                  sessionDuration:
+                                                      _tfSessionDur.text,
+                                                  sessionRepitition:
+                                                      _tfRepetition.text,
+                                                  breakDuration:
+                                                      _tfBreakDur.text,
+                                                )));
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          widget.musicName,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          softWrap: false,
                                         ),
-                                        Icon(
-                                          Icons.arrow_forward,
-                                          color: Color(0xffFFF5B6C2),
-                                        )
-                                      ],
-                                    ),
-                                  )),
-                              SizedBox(height: 60),
-                              SizedBox(
+                                      ),
+                                      Icon(
+                                        Icons.arrow_forward,
+                                        color: Color(0xffFFF5B6C2),
+                                      )
+                                    ],
+                                  ),
+                                )),
+                            SizedBox(height: 60),
+                            Center(
+                              child: SizedBox(
                                   width: 200,
                                   height: 50,
                                   child: OutlinedButton(
@@ -229,8 +228,8 @@ class _FocusSessionState extends State<FocusSession> {
                                           fontSize: 20),
                                     ),
                                   )),
-                            ],
-                          ),
+                            ),
+                          ],
                         )
                       ]),
                 ))));
