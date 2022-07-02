@@ -10,9 +10,8 @@ class Database2 {
   }
 
   static Future<void> tambahData({required itemCategory item}) async {
-    DocumentReference docRef = tblCategory.doc();
-    print(docRef.id);
-    item.itemId = docRef.id;
+    DocumentReference docRef = tblCategory.doc(item.itemId);
+    //print(docRef.id);
     await docRef
         .set(item.toJson())
         .whenComplete(() => print("data berhasil diinput"))

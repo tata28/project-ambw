@@ -106,7 +106,7 @@ class _TaskDetailsState extends State<TaskDetails> {
                                     if (newCategory) {
                                       valueChoose = _tfNewCategory.text;
                                     }
-
+                                    print(valueChoose);
                                     final dtBaru = itemTask(
                                         itemId: "1",
                                         itemTitle: _tfTitle.text,
@@ -116,12 +116,13 @@ class _TaskDetailsState extends State<TaskDetails> {
                                         itemTime: Timestamp.fromDate(dateTime));
                                     Database.tambahData(item: dtBaru);
                                     final dtBaru2 = itemCategory(
-                                        itemId: "1", category: valueChoose);
+                                        itemId: valueChoose,
+                                        category: valueChoose);
                                     if (newCategory) {
                                       Database2.tambahData(item: dtBaru2);
                                     }
 
-                                    // Navigator.pop(context);
+                                    Navigator.pop(context);
                                     // Navigator.push(
                                     //     context,
                                     //     MaterialPageRoute(
