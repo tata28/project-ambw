@@ -31,6 +31,15 @@ class _FocusSessionState extends State<FocusSession> {
   TextEditingController _tfBreakDur = TextEditingController();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _tfSessionDur.text = widget.sessionDuration.toString();
+    _tfRepetition.text = widget.sessionRepitition.toString();
+    _tfBreakDur.text = widget.breakDuration.toString();
+  }
+
+  @override
   void dispose() {
     _tfSessionDur.dispose();
     _tfRepetition.dispose();
