@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:project_ambw/dataclass.dart';
+import 'package:project_ambw/tes_notif.dart';
 import 'package:project_ambw/test_dropdown.dart';
 import 'package:project_ambw/to_do_list.dart';
 import 'dbservices.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int currentIndex = 0;
+
   final screens = [
     Home(),
     FocusSession(
@@ -38,7 +40,8 @@ class _MyAppState extends State<MyApp> {
         breakDuration: "",
         musicURL: "",
         musicName: "choose music"),
-    ToDoList(),
+    // ToDoList(),
+    TesNotif(),
     Completed(),
     SettingsPage()
   ];

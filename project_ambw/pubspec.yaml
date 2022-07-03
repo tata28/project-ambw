@@ -39,7 +39,10 @@ dependencies:
   flutter_dnd: ^0.1.4+1
   intl: ^0.17.0
   loading_animation_widget: ^1.2.0+1
-  sound_mode: ^2.0.2
+  flutter_local_notifications: ^9.6.0
+  sound_mode: ^2.0.2 # Any attribute updates automatically your source to the last version
+  timezone: ^0.8.0
+  rxdart: ^0.27.4
 
 dev_dependencies:
   flutter_lints: ^1.0.0
