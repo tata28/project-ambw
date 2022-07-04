@@ -8,6 +8,7 @@ import 'package:project_ambw/dbservices.dart';
 import 'package:project_ambw/home.dart';
 
 import 'dbservices2.dart';
+import 'notification_widget.dart';
 
 class TaskDetails extends StatefulWidget {
   // const TaskDetails({Key? key}) : super(key: key);
@@ -145,6 +146,16 @@ class _TaskDetailsState extends State<TaskDetails> {
                                           Database.ubahData(item: dtBaru);
                                         }
 
+                                        if (DateTime.now().compareTo(dateTime) >
+                                            1) {
+                                          NotificationWidget
+                                              .showScheduleNotification(
+                                                  title: _tfTitle.text,
+                                                  body: _tfDetail.text,
+                                                  scheduleTime:
+                                                      dateTime.subtract(
+                                                          Duration(days: 1)));
+                                        }
                                         Navigator.pop(context);
                                       }
                                     });

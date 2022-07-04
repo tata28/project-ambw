@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
         musicURL: "",
         musicName: "choose music"),
     // ToDoList(),
-    TesNotif(),
+    ToDoList(),
     Completed(),
     SettingsPage()
   ];
@@ -60,7 +60,7 @@ class _MyAppState extends State<MyApp> {
             selectedItemColor: Colors.white,
             unselectedItemColor: Color.fromRGBO(192, 191, 191, 0.69),
             // unselectedItemColor: Color(0xffFFC0BFBF),
-            backgroundColor: Colors.black,
+            backgroundColor: Color.fromRGBO(23, 21, 22, 1),
             currentIndex: currentIndex,
             onTap: (index) => setState(() => currentIndex = index),
             items: [
