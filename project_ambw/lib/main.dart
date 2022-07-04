@@ -14,6 +14,7 @@ import 'package:project_ambw/settings.dart';
 import 'package:project_ambw/home.dart';
 import 'package:project_ambw/settings.dart';
 import 'focus_session.dart';
+import 'login.dart';
 import 'task_details.dart';
 
 void main() async {
@@ -33,6 +34,7 @@ class _MyAppState extends State<MyApp> {
   int currentIndex = 0;
 
   final screens = [
+    Login(),
     Home(),
     FocusSession(
         sessionDuration: "",
@@ -64,6 +66,10 @@ class _MyAppState extends State<MyApp> {
             currentIndex: currentIndex,
             onTap: (index) => setState(() => currentIndex = index),
             items: [
+              BottomNavigationBarItem(
+                icon: ImageIcon(AssetImage("assets/img/home.png")),
+                label: 'Login',
+              ),
               BottomNavigationBarItem(
                 icon: ImageIcon(AssetImage("assets/img/home.png")),
                 label: 'Home',
