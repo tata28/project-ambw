@@ -156,6 +156,7 @@ class _TaskDetailsState extends State<TaskDetails> {
                                                       dateTime.subtract(
                                                           Duration(days: 1)));
                                         }
+
                                         Navigator.pop(context);
                                       }
                                     });

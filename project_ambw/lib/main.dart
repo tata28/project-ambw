@@ -67,7 +67,7 @@ class _MyAppState extends State<MyApp> {
             onTap: (index) => setState(() => currentIndex = index),
             items: [
               BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage("assets/img/home.png")),
+                icon: Icon(Icons.login),
                 label: 'Login',
               ),
               BottomNavigationBarItem(
